@@ -1,34 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import styled from "@emotion/styled";
+import InfoPage from "./page/Info/InfoPage"
+import HomePage from "./page/Home/HomePage"
+import LoginPage from "./page/Login/LoginPage";
+import SignUpPage from "./page/SignUp/SignUpPage";
+import Info from "./page/SignUp/SignUpPage.Info";
+import Info2 from "./page/SignUp/SignUpPage.Info2";
+import Success from "./page/SignUp/SignUpPage.Success";
+import FindMainPage from "./page/FindIDnPW/FindMainPage";
+import DiagnosisUproadPage from "./page/Diagnosis/DiagnosisUproadPage";
+import DiagnosisDetailPage from "./page/Diagnosis/DiagnosisDetailPage";
+import NearestHospital from "./page/Map/NearestHospitalPage";
+import MyPage from "./page/MyPage/MyPage";
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const Wrapper = styled.div`
+  background-color: #f5f5f5; /* 배경색 */
+`;
+
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <Wrapper>
+      {/* <InfoPage /> */}
+      {/* <HomePage /> */}
+      {/* <LoginPage /> */}
+      {/* <SignUpPage/> */}
+      {/* <Info/> */}
+      {/* <Info2/> */}
+      {/* <Success/> */}
+      {/* <FindMainPage/> */}
+      {/* <DiagnosisUproadPage/> */}
+      {/* <DiagnosisDetailPage /> */}
+      {/* <NearestHospital/> */}
+      <MyPage />
+    </Wrapper>
   )
 }
 
