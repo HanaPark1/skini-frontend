@@ -11,6 +11,7 @@ import DiagnosisUproadPage from "./page/Diagnosis/DiagnosisUproadPage";
 import DiagnosisDetailPage from "./page/Diagnosis/DiagnosisDetailPage";
 import NearestHospital from "./page/Map/NearestHospitalPage";
 import MyPage from "./page/MyPage/MyPage";
+import MapTestPage from "./page/Map/MapTestPage";
 
 function App() {
 
@@ -23,7 +24,7 @@ function App() {
     <Wrapper>
       {/* <InfoPage /> */}
       {/* <HomePage /> */}
-      {/* <LoginPage /> */}
+      <LoginPage />
       {/* <SignUpPage/> */}
       {/* <Info/> */}
       {/* <Info2/> */}
@@ -32,7 +33,7 @@ function App() {
       {/* <DiagnosisUproadPage/> */}
       {/* <DiagnosisDetailPage /> */}
       {/* <NearestHospital/> */}
-      <MyPage />
+      {/* <MyPage /> */}
     </Wrapper>
   )
 }
