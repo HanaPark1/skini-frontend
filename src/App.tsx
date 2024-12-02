@@ -11,6 +11,7 @@ import DiagnosisUproadPage from "./page/Diagnosis/DiagnosisUproadPage";
 import DiagnosisDetailPage from "./page/Diagnosis/DiagnosisDetailPage";
 import NearestHospital from "./page/Map/NearestHospitalPage";
 import MyPage from "./page/MyPage/MyPage";
+import MapTestPage from "./page/Map/MapTestPage";
 
 function App() {
 
