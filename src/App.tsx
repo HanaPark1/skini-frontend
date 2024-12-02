@@ -24,7 +24,7 @@ function App() {
     <Wrapper>
       {/* <InfoPage /> */}
       {/* <HomePage /> */}
-      {/* <LoginPage /> */}
+      <LoginPage />
       {/* <SignUpPage/> */}
       {/* <Info/> */}
       {/* <Info2/> */}
@@ -33,7 +33,7 @@ function App() {
       {/* <DiagnosisUproadPage/> */}
       {/* <DiagnosisDetailPage /> */}
       {/* <NearestHospital/> */}
-      <MyPage />
+      {/* <MyPage /> */}
     </Wrapper>
   )
 }
