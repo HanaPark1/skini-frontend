@@ -1,7 +1,7 @@
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { useEffect, useState } from "react";
 
-const Maps = () => {
+const Maps = ({ onMarkersChange, onMarkerSelect }) => {
     const [currentPosition, setCurrentPosition] = useState({ lat: 37.55465, lng: 126.9706 }); // 기본 위치 설정
     const [map, setMap] = useState(null); // 지도 객체 저장
     const [markers, setMarkers] = useState([]);
@@ -35,9 +35,12 @@ const Maps = () => {
                     return {
                         position: { lat: parseFloat(place.y), lng: parseFloat(place.x) },
                         content: place.place_name,
+                        address: place.address_name,
+                        phone: place.phone || "전화번호 없음",
                     };
                 });
                 setMarkers(newMarkers);
+                onMarkersChange(newMarkers);
                 map.setBounds(bounds); // 검색된 장소에 맞게 지도 범위 조정
             }
         }, {
@@ -45,6 +48,11 @@ const Maps = () => {
             radius: 3000, // 반경 5km 내 검색
         });
     }, [map, currentPosition]);
+
+    const handleMarkerClick = (marker) => {
+        setInfo(marker);
+        if (onMarkerSelect) onMarkerSelect(marker); // 부모로 정보 전달
+    };
 
 
     return (
@@ -59,7 +67,7 @@ const Maps = () => {
                     <MapMarker
                         key={index}
                         position={marker.position}
-                        onClick={() => setInfo(marker)}
+                        onClick={() => handleMarkerClick(marker)}
                     >
                         {info && info.content === marker.content && (
                             <div style={{ color: "#000" }}>{marker.content}</div>
