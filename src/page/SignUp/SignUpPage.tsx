@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import styled from "@emotion/styled";
 import logo from "../../assets/logo_b.png";
+import { useNavigate } from "react-router-dom";
 
 const HomeContainer = styled.div`
     display: flex;
@@ -62,6 +63,11 @@ const BottomBtn = styled.div`
 `;
 
 function SignUpPage() {
+    const navigate = useNavigate();
+    const handleSignUp = () => {
+        navigate('/signup/info');
+    }
+
   return (
     <HomeContainer>
         <Logo src={logo} alt="skini-Logo" />
@@ -71,7 +77,7 @@ function SignUpPage() {
             <Description>저는 피부암/질환 자가진단 및 병원 안내 상담사예요
             원활한 검사를 위해 당신에 대해 알려 주세요!</Description>
         </TextContainer>
-        <BottomBtn>시작하기</BottomBtn> 
+        <BottomBtn onClick={handleSignUp}>시작하기</BottomBtn> 
     </HomeContainer>
   );
 }
