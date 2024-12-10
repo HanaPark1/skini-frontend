@@ -3,30 +3,34 @@ import styled from "@emotion/styled";
 import logo from "../../assets/logo_b.png";
 import client from '../../client';  // client 파일 가져오기
 import { useState } from "react";  // 상태 관리를 위해 useState 사용
+import { useNavigate } from 'react-router-dom';
 
 // 로그인 함수
-export const login = async (loginId: string, password: string): Promise<void> => {
+export const login = async (loginId: string, password: string): Promise<boolean> => {
   try {
     const apiClient = client();
     if (!apiClient) {
       throw new Error('API 클라이언트를 생성할 수 없습니다.');
     }
 
-    // 로그인 요청
     const response = await apiClient.post('/api/login', { loginId, password });
-    // 실제 POST 응답 확인
-    console.log('POST 요청에 대한 응답:', response);
 
-    // 응답에서 토큰 가져오기
-    const { accessToken } = response.data;
+    const accessToken = response.headers['jwt'];
+    const refreshToken = response.headers['refresh'];
 
-    // 로컬 스토리지에 토큰 저장
-    if (accessToken) {
-      localStorage.setItem('accessToken', accessToken);
-      console.log('로그인 성공, 토큰 저장 완료');
+    if (accessToken && refreshToken) {
+      sessionStorage.setItem('accessToken', accessToken);
+      document.cookie = `refreshToken=${refreshToken}; Secure; HttpOnly; SameSite=Strict`;
+
+      console.log('로그인 성공!');
+      return true; // 성공 시 true 반환
+    } else {
+      throw new Error('토큰이 없습니다.');
     }
   } catch (error) {
     console.error('로그인 실패:', error);
+    alert('아이디 또는 비밀번호를 확인해 주세요.');
+    return false; // 실패 시 false 반환
   }
 };
 
@@ -100,14 +104,24 @@ const BottomBtn = styled.div`
 function LoginPage() {
   const [loginId, setLoginId] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     if (!loginId || !password) {
-      console.error("아이디와 비밀번호를 입력하세요.");
+      alert("아이디와 비밀번호를 입력하세요.");
       return;
     }
-    await login(loginId, password);
+
+    const isSuccess = await login(loginId, password); // 로그인 성공 여부 확인
+    if (isSuccess) {
+      navigate('/'); // 로그인 성공 시 이동
+    }
   };
+
+  const handleSignUp = () => {
+    navigate('/signup');
+  };
+
   return (
     <HomeContainer>
       <Logo src={logo} alt="skini-Logo" />
@@ -120,7 +134,7 @@ function LoginPage() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}></Input>
       <SignNFindContainer>
-        <SingNFindBtn>회원가입</SingNFindBtn>
+        <SingNFindBtn onClick={handleSignUp}>회원가입</SingNFindBtn>
         <SingNFindBtn>아이디/비밀번호찾기</SingNFindBtn>
       </SignNFindContainer>
       <BottomBtn onClick={handleLogin}>로그인</BottomBtn>
