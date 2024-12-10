@@ -1,6 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import styled from "@emotion/styled";
 import logo from "../../assets/logo_b.png";
+import { useNavigate } from "react-router-dom";
+import client from "@/client";
+import { useState } from "react";
 
 const HomeContainer = styled.div`
     display: flex;
@@ -16,7 +19,7 @@ const Logo = styled.img`
 `;
 
 const Input = styled.input`
-    margin: 0 0 113px 12px;
+    margin: ${({ type }) => (type === "tel" ? "0 0 180px 12px" : "0 0 113px 12px")};
 
     width: 314px;
     height: 51px;
@@ -26,6 +29,7 @@ const Input = styled.input`
     background: #f5f5f5;
     font-size: 25px;
     font-weight: bold;
+    color: #777;
 `
 
 const BottomBtn = styled.div`
@@ -45,17 +49,68 @@ const BottomBtn = styled.div`
     font-weight: 600;
 `;
 
+const Select = styled.select`
+  margin: 0 0 180px 12px;
+  width: 314px;
+  height: 51px;
+  border: none;
+  border-bottom: 1px solid #a7a1ae;
+  background: #f5f5f5;
+  font-size: 25px;
+  font-weight: bold;
+  color: #777;
+`;
+
 function Info2() {
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    username: "",
+    loginId: "",
+    password: "",
+    email: "",
+    age: 0,
+    gender: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+
+  const handleSuccess = async () => {
+    const apiClient = client();
+    if (!apiClient) {
+      throw new Error("API 클라이언트를 생성할 수 없습니다.");
+    }
+
+    try {
+      const response = await apiClient.post("/api/join", {
+        ...formData,
+        age: Number(formData.age), // age는 숫자로 변환
+      });
+      if (response.status === 200) {
+        navigate("/signup/success", {state: formData.username});
+      }
+    } catch (error) {
+      console.error("회원가입 요청 실패:", error);
+    }
+  };
   return (
     <HomeContainer>
-        <Logo src={logo} alt="skini-Logo" />
-        <Input placeholder="이름"></Input>
-        <Input placeholder="생년월일"></Input>
-        <Input placeholder="성별"></Input>
-        <Input placeholder="이메일"></Input>
-        <Input placeholder="휴대폰 번호"></Input>
-        <Input placeholder="주소"></Input>
-        <BottomBtn>로그인</BottomBtn> 
+      <Logo src={logo} alt="skini-Logo" />
+      <Input name="username" placeholder="사용자 이름" onChange={handleChange} />
+      <Input name="loginId" placeholder="아이디" onChange={handleChange} />
+      <Input name="password" type="password" placeholder="비밀번호" onChange={handleChange} />
+      <Input name="email" type="email" placeholder="이메일" onChange={handleChange} />
+      <Input name="age" type="number" placeholder="나이" onChange={handleChange} />
+      <Select name="gender" onChange={handleChange}>
+        <option value="">성별 선택</option>
+        <option value="MALE">남성</option>
+        <option value="FEMALE">여성</option>
+      </Select>
+      <BottomBtn onClick={handleSuccess}>입력 완료</BottomBtn>
     </HomeContainer>
   );
 }

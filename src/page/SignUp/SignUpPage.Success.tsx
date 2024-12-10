@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import styled from "@emotion/styled";
 import logo from "../../assets/logo_b.png";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const HomeContainer = styled.div`
     display: flex;
@@ -62,15 +63,22 @@ const BottomBtn = styled.div`
 `;
 
 function Success() {
+    const location = useLocation();
+    const username = location.state; // 전달된 데이터
+
+    const navigate = useNavigate();
+    const handleHome = () => {
+        navigate('/');
+    }
   return (
     <HomeContainer>
         <Logo src={logo} alt="skini-Logo" />
         <ImgWrapper/>
         <TextContainer>
             <Title>회원가입 완료</Title>
-            <Description>OOO 님 환영합니다!</Description>
+            <Description>{username} 님 환영합니다!</Description>
         </TextContainer>
-        <BottomBtn>시작하기</BottomBtn> 
+        <BottomBtn onClick={handleHome}>시작하기</BottomBtn> 
     </HomeContainer>
   );
 }
