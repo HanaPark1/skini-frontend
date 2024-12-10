@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import InfoPage from "./page/Info/InfoPage"
 import HomePage from "./page/Home/HomePage"
 import LoginPage from "./page/Login/LoginPage";
@@ -11,7 +12,9 @@ import DiagnosisUproadPage from "./page/Diagnosis/DiagnosisUproadPage";
 import DiagnosisDetailPage from "./page/Diagnosis/DiagnosisDetailPage";
 import NearestHospital from "./page/Map/NearestHospitalPage";
 import MyPage from "./page/MyPage/MyPage";
-import MapTestPage from "./page/Map/MapTestPage";
+import DiagnosisGuidePage from "./page/Diagnosis/DiangosisGuidePage";
+import MyInfoPage from "./page/MyPage/MyInfoPage";
+import RecentDiagnostic from "./page/MyPage/RecentDiagnostic";
 
 function App() {
 
@@ -19,21 +22,27 @@ function App() {
   background-color: #f5f5f5; /* 배경색 */
 `;
 
-
   return (
     <Wrapper>
-      {/* <InfoPage /> */}
-      {/* <HomePage /> */}
-      <LoginPage />
-      {/* <SignUpPage/> */}
-      {/* <Info/> */}
-      {/* <Info2/> */}
-      {/* <Success/> */}
+      <Router>
+        <Routes>
+          {/* <Route path="/" element={<InfoPage />} /> */}
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignUpPage/>} />
+          <Route path="/signup/info" element={<Info2/>} />
+          <Route path="/signup/success" element={<Success/>} />
+          <Route path="/mypage" element={<MyPage />} />
+          <Route path="/mypage/info" element={<MyInfoPage/>} />
+          <Route path="/mypage/diagnostic" element={<RecentDiagnostic/>} />
+          <Route path="/diagnosis" element={<DiagnosisGuidePage/>} />
+          <Route path="/diagnosis/upload" element={<DiagnosisUproadPage/>} />
+          <Route path="/diagnosis/result/:id" element={<DiagnosisDetailPage/>} />
+          <Route path="/nearhospital" element={<NearestHospital />} /> 
+          
+        </Routes>
+      </Router>
       {/* <FindMainPage/> */}
-      {/* <DiagnosisUproadPage/> */}
-      {/* <DiagnosisDetailPage /> */}
-      {/* <NearestHospital/> */}
-      {/* <MyPage /> */}
     </Wrapper>
   )
 }
