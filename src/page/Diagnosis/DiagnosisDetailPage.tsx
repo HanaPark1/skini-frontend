@@ -53,7 +53,7 @@ function DiagnosisDetailPage() {
         console.log(result.result);
         const apiClient = client();
         try {
-            const response = await apiClient.get(`/api/diagnosis_info?name=Vascular Lesion`);
+            const response = await apiClient.get(`/api/diagnosis_info?name=${result.result}`);
             setDiagnosisInfo(response.data); // 추가 데이터 저장
         } catch (error) {
             console.error('Error fetching additional data:', error);
