@@ -14,14 +14,6 @@ import MyInfoPage from "./page/MyPage/MyInfoPage";
 import RecentDiagnostic from "./page/MyPage/RecentDiagnostic";
 
 function App() {
-
-  const Wrapper = styled.div`
-  background-color: #f5f5f5; /* 배경색 */
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-`;
-
   return (
     <Wrapper>
       <Routes>
@@ -45,3 +37,11 @@ function App() {
 }
 
 export default App
+
+const Wrapper = styled.div`
+  background-color: #f5f5f5; /* 배경색 */
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center
+`;
