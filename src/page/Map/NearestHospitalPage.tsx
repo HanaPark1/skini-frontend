@@ -25,7 +25,6 @@ function NearestHospital() {
     try {
       // 요청 데이터 구성
       const HospitalDto = {
-        "id": 1,
         hospitalName: selectedMarker.content,
         address: selectedMarker.address,
         latitude: selectedMarker.position.lat || 0, // latitude 기본값 처리
