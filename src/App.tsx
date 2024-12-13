@@ -21,24 +21,21 @@ function App() {
 
   return (
     <Wrapper>
-      <Router>
-        <Routes>
-          {/* <Route path="/" element={<InfoPage />} /> */}
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignUpPage/>} />
-          <Route path="/signup/info" element={<Info2/>} />
-          <Route path="/signup/success" element={<Success/>} />
-          <Route path="/mypage" element={<MyPage />} />
-          <Route path="/mypage/info" element={<MyInfoPage/>} />
-          <Route path="/mypage/diagnostic" element={<RecentDiagnostic/>} />
-          <Route path="/diagnosis" element={<DiagnosisGuidePage/>} />
-          <Route path="/diagnosis/upload" element={<DiagnosisUproadPage/>} />
-          <Route path="/diagnosis/result/:id" element={<DiagnosisDetailPage/>} />
-          <Route path="/nearhospital" element={<NearestHospital />} /> 
-          
-        </Routes>
-      </Router>
+      <Routes>
+        {/* <Route path="/" element={<InfoPage />} /> */}
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/signup/info" element={<Info2 />} />
+        <Route path="/signup/success" element={<Success />} />
+        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/mypage/info" element={<MyInfoPage />} />
+        <Route path="/mypage/diagnostic" element={<RecentDiagnostic />} />
+        <Route path="/diagnosis" element={<DiagnosisGuidePage />} />
+        <Route path="/diagnosis/upload" element={<DiagnosisUproadPage />} />
+        <Route path="/diagnosis/result/:id" element={<DiagnosisDetailPage />} />
+        <Route path="/nearhospital" element={<NearestHospital />} />
+      </Routes>
       {/* <FindMainPage/> */}
     </Wrapper>
   )
