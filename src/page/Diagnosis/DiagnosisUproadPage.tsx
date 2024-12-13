@@ -59,11 +59,7 @@ const DiagnosisUproadPage = () => {
             console.log('파일 업로드 성공:', response.data);
             alert('파일 업로드가 완료되었습니다.');
             
-            if (accessToken) {
-                navigate(`/diagnosis/result/${response.data.id}`, { state: response.data.id });
-            } else {
-                navigate(`/diagnosis/result/${response.data.id}`, { state: response.data});
-            }
+            navigate(`/diagnosis/result/${response.data.id}`, { state: response.data.id });
                 
         } catch (error) {
             console.error('파일 업로드 실패:', error);
