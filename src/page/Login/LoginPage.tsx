@@ -34,6 +34,52 @@ export const login = async (loginId: string, password: string): Promise<boolean>
   }
 };
 
+function LoginPage() {
+  const [loginId, setLoginId] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    if (!loginId || !password) {
+      alert("아이디와 비밀번호를 입력하세요.");
+      return;
+    }
+
+    const isSuccess = await login(loginId, password); // 로그인 성공 여부 확인
+    if (isSuccess) {
+      navigate('/'); // 로그인 성공 시 이동
+    }
+  };
+
+  const handleSignUp = () => {
+    navigate('/signup');
+  };
+
+  return (
+    <HomeContainer>
+      <Logo src={logo} alt="skini-Logo" />
+      <InputContainer>
+        <Input
+          placeholder="아이디"
+          value={loginId}
+          onChange={(e) => setLoginId(e.target.value)}></Input>
+        <Input type="password"
+          placeholder="비밀번호"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}></Input>
+      </InputContainer>
+      <SignNFindContainer>
+        <SingNFindBtn onClick={handleSignUp}>회원가입</SingNFindBtn>
+        <SingNFindBtn>아이디/비밀번호찾기</SingNFindBtn>
+      </SignNFindContainer>
+      <BottomBtn onClick={handleLogin}>로그인</BottomBtn>
+    </HomeContainer>
+  );
+}
+
+export default LoginPage;
+
+
 
 const HomeContainer = styled.div`
 //   display: flex;
@@ -101,45 +147,7 @@ const BottomBtn = styled.div`
     font-weight: 600;
 `;
 
-function LoginPage() {
-  const [loginId, setLoginId] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-
-  const handleLogin = async () => {
-    if (!loginId || !password) {
-      alert("아이디와 비밀번호를 입력하세요.");
-      return;
-    }
-
-    const isSuccess = await login(loginId, password); // 로그인 성공 여부 확인
-    if (isSuccess) {
-      navigate('/'); // 로그인 성공 시 이동
-    }
-  };
-
-  const handleSignUp = () => {
-    navigate('/signup');
-  };
-
-  return (
-    <HomeContainer>
-      <Logo src={logo} alt="skini-Logo" />
-      <Input
-        placeholder="아이디"
-        value={loginId}
-        onChange={(e) => setLoginId(e.target.value)}></Input>
-      <Input type="password"
-        placeholder="비밀번호"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}></Input>
-      <SignNFindContainer>
-        <SingNFindBtn onClick={handleSignUp}>회원가입</SingNFindBtn>
-        <SingNFindBtn>아이디/비밀번호찾기</SingNFindBtn>
-      </SignNFindContainer>
-      <BottomBtn onClick={handleLogin}>로그인</BottomBtn>
-    </HomeContainer>
-  );
-}
-
-export default LoginPage;
+const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`
