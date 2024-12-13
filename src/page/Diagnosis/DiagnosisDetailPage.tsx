@@ -10,7 +10,7 @@ interface Diagnosis {
     isPositive: boolean,
     confidenceScore: string,
     result: string,
-    // createdAt: string
+    createdAt: string
     username: string
 }
 
@@ -22,6 +22,7 @@ interface DiagnosisInfo {
 }
 
 function DiagnosisDetailPage() {
+    const apiClient = client();
     const location = useLocation();
     const diagnosisId = location.state; // 전달된 데이터
     const navigate = useNavigate();
@@ -31,19 +32,20 @@ function DiagnosisDetailPage() {
 
     const fetchDiagnosisData = async () => {
         console.log(diagnosisId);
-        const apiClient = client();
         try {
-            const response = await apiClient.get(`/api/diagnosis/${diagnosisId}`, {
-                headers: { Authorization: `Bearer ${accessToken}` },
-            });
-            const data = response.data;
-
-            // confidenceScore 절삭
-            if (data.confidenceScore) {
-                data.confidenceScore = data.confidenceScore.split('.')[0];
+            if (!apiClient) {
+                console.error("API 클라이언트가 생성되지 않았습니다.");
+            } else {
+                const response = await apiClient.get(`/api/diagnosis/${diagnosisId}`, {
+                    headers: { Authorization: `Bearer ${accessToken}` },
+                });
+                const data = response.data;
+                if (data.confidenceScore) {
+                    data.confidenceScore = data.confidenceScore.split('.')[0];
+                }
+                setDiagnosisResult(data); // 'data'에 접근 가능
             }
-
-            setDiagnosisResult(data); // 'data'에 접근 가능
+            
         } catch (error) {
             console.error('Error fetching diagnosis data:', error);
         }
@@ -51,10 +53,15 @@ function DiagnosisDetailPage() {
 
     const fetchDiagnosisInfoData = async (result: Diagnosis) => {
         console.log(result.result);
-        const apiClient = client();
+        
         try {
-            const response = await apiClient.get(`/api/diagnosis_info?name=${result.result}`);
-            setDiagnosisInfo(response.data); // 추가 데이터 저장
+            if (!apiClient) {
+                console.error("API 클라이언트가 생성되지 않았습니다.");
+            } else {
+                const response = await apiClient.get(`/api/diagnosis_info?name=${result.result}`);
+                setDiagnosisInfo(response.data); // 추가 데이터 저장
+            }
+            
         } catch (error) {
             console.error('Error fetching additional data:', error);
         }

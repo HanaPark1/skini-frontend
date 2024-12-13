@@ -29,29 +29,6 @@ const Input = styled.input`
     font-weight: bold;
 `
 
-const SignNFindContainer = styled.div`
-    margin: 80px 0 0 36px;
-    width: 261px;
-    height: 140px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-s`
-const SingNFindBtn = styled.div`
-    width: 100%;
-    height: 51px;
-    background-color: #A7A1AE;
-    border-radius: 25px;
-    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    font-size: 25px;
-    font-weight: 600;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #ffffff;
-`
-
 const BottomBtn = styled.div`
     position: fixed; /* 화면에 고정 */
     bottom: 0; /* 화면의 가장 아래로 이동 */

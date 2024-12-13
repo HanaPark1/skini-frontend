@@ -16,6 +16,7 @@ function RecentDiagnostic() {
         result: string;
         confidenceScore: number;
         diagnosisType: string;
+        imageUrl: string;
     }
 
     if (!apiClient) {
@@ -37,9 +38,9 @@ function RecentDiagnostic() {
         fetchDiagnosisData();
     }, []);
 
-    const handelDelete = async (id: string) => {
+    const handleDelete = async (id: string) => {
         try {
-            const response = await apiClient.delete(`/api/diagnosis/${id}`, {
+            await apiClient.delete(`/api/diagnosis/${id}`, {
                 headers: { 'Authorization': `Bearer ${accessToken}` },
             });
             // 삭제 후 목록을 갱신하려면 아래처럼 필터링하여 상태 업데이트
@@ -71,9 +72,9 @@ function RecentDiagnostic() {
                             <DateText>24.11.05</DateText>
                             <TitleText>{diagnosis.result}</TitleText>
                         </DateNTitleContainer>
-                        <ScoreText>{diagnosis.confidenceScore.split('.')[0]}</ScoreText>
+                        <ScoreText>{Math.floor(diagnosis.confidenceScore)}</ScoreText>
                     </TextContainer>
-                    <DeleteBtn src={deleteIcon} onClick={() => handelDelete(diagnosis.id)} />
+                    <DeleteBtn src={deleteIcon} onClick={() => handleDelete(diagnosis.id)} />
                 </DetailContainer>
             ))}
 

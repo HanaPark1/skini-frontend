@@ -1,11 +1,24 @@
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { useEffect, useState } from "react";
 
-const Maps = ({ onMarkersChange, onMarkerSelect }) => {
+interface Marker {
+    position: { lat: number; lng: number };
+    content: string;
+    address: string;
+    phone: string;
+}
+
+
+interface MapsProps {
+    onMarkersChange: (markers: Marker[]) => void;
+    onMarkerSelect: (marker: Marker) => void;
+}
+
+const Maps: React.FC<MapsProps> = ({ onMarkersChange, onMarkerSelect }) => {
     const [currentPosition, setCurrentPosition] = useState({ lat: 37.55465, lng: 126.9706 }); // 기본 위치 설정
-    const [map, setMap] = useState(null); // 지도 객체 저장
-    const [markers, setMarkers] = useState([]);
-    const [info, setInfo] = useState(null); // 선택된 마커 정보 저장
+    const [map, setMap] = useState<any>(null); // 지도 객체 저장
+    const [markers, setMarkers] = useState<Marker[]>([]);
+    const [info, setInfo] = useState<Marker | null>(null); // 선택된 마커 정보 저장
 
     useEffect(() => {
         if (navigator.geolocation) {
@@ -31,7 +44,7 @@ const Maps = ({ onMarkersChange, onMarkerSelect }) => {
             if (status === kakao.maps.services.Status.OK) {
                 const bounds = new kakao.maps.LatLngBounds();
                 const newMarkers = data.map((place) => {
-                    bounds.extend(new kakao.maps.LatLng(place.y, place.x));
+                    bounds.extend(new kakao.maps.LatLng(parseFloat(place.y), parseFloat(place.x)));
                     return {
                         position: { lat: parseFloat(place.y), lng: parseFloat(place.x) },
                         content: place.place_name,
@@ -49,7 +62,7 @@ const Maps = ({ onMarkersChange, onMarkerSelect }) => {
         });
     }, [map, currentPosition]);
 
-    const handleMarkerClick = (marker) => {
+    const handleMarkerClick = (marker: Marker) => {
         setInfo(marker);
         if (onMarkerSelect) onMarkerSelect(marker); // 부모로 정보 전달
     };

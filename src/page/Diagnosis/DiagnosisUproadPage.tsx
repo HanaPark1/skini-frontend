@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import camera from "../../assets/Camera.png";
-import axios from 'axios';
 import { useState, useRef } from 'react';
 import { useNavigate } from "react-router-dom";
 import client from "@/client";
