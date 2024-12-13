@@ -44,7 +44,6 @@ export default HomePage;
 const HomeContainer = styled.div`
   height: 100vh; /* 화면 전체 높이 */
   padding: 87px 33px 0 33px;
-  width: 378px;
 `;
 
 const Logo = styled.img`
@@ -89,7 +88,6 @@ const DiagnosisBtnText = styled.span`
 `;
 
 const MyInfoBtnWrapper = styled.div`
-  width: 100%;
   display: flex; 
   align-items: center;
   justify-content: center;
@@ -99,7 +97,6 @@ const MyInfoBtnWrapper = styled.div`
 const MyInfoBtn = styled.div`
   width: 380px;
   height: 100px;
-  flex-shrink: 0;
   border-radius: 25px;
   background: #A7A1AE;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
