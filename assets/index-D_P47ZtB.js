@@ -808,4 +808,7 @@ ${JSON.stringify(G.instance.options,null,2)}`);default:G.instance.reset(),G.inst
     font-size: 38px;
 `;function Gk(){const e=P.div`
   background-color: #f5f5f5; /* 배경색 */
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 `;return k.jsx(e,{children:k.jsxs(Iv,{children:[k.jsx(Fe,{path:"/",element:k.jsx(S1,{})}),k.jsx(Fe,{path:"/login",element:k.jsx(Zw,{})}),k.jsx(Fe,{path:"/signup",element:k.jsx(dx,{})}),k.jsx(Fe,{path:"/signup/info",element:k.jsx(yx,{})}),k.jsx(Fe,{path:"/signup/success",element:k.jsx(Px,{})}),k.jsx(Fe,{path:"/mypage",element:k.jsx(lk,{})}),k.jsx(Fe,{path:"/mypage/info",element:k.jsx(Ok,{})}),k.jsx(Fe,{path:"/mypage/diagnostic",element:k.jsx(Ik,{})}),k.jsx(Fe,{path:"/diagnosis",element:k.jsx(xk,{})}),k.jsx(Fe,{path:"/diagnosis/upload",element:k.jsx(Tx,{})}),k.jsx(Fe,{path:"/diagnosis/result/:id",element:k.jsx(Ox,{})}),k.jsx(Fe,{path:"/nearhospital",element:k.jsx(tk,{})})]})})}const Af=document.getElementById("root");Af?Hp(Af).render(k.jsx(on.StrictMode,{children:k.jsx(o1,{children:k.jsx(Gk,{})})})):console.error("Root element not found. Please ensure your HTML file contains a div with id='root'.");
