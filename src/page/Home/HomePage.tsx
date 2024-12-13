@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 const HomeContainer = styled.div`
   height: 100vh; /* 화면 전체 높이 */
   padding: 87px 33px 0 33px;
+  width: 378px;
 `;
 
 const Logo = styled.img`
