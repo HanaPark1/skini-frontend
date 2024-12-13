@@ -33,38 +33,45 @@ const DiagnosisUproadPage = () => {
             alert('파일을 선택해 주세요.');
             return;
         }
-
-        const accessToken = sessionStorage.getItem('accessToken'); // 세션에서 토큰 가져오기
-        if (!accessToken) {
-            alert('로그인이 필요합니다.');
-            return;
-        }
-
-        const diagnosisType = 'CANCER';  // 'CANCER' 또는 'DISEASE'
-
+    
+        const diagnosisType = 'CANCER'; // 'CANCER' 또는 'DISEASE'
         const formData = new FormData();
         formData.append('file', file); // 이미지 파일 추가
-        
+    
         const apiClient = client();
         if (!apiClient) {
             throw new Error('API 클라이언트를 생성할 수 없습니다.');
         }
-
+    
         try {
-            const response = await apiClient.post(`api/diagnosis?type=${diagnosisType}`, 
+            const headers: Record<string, string> = { 'Content-Type': 'multipart/form-data' };
+    
+            const accessToken = sessionStorage.getItem('accessToken'); // 세션에서 토큰 가져오기
+            if (accessToken) {
+                headers['Authorization'] = `Bearer ${accessToken}`;
+            }
+    
+            const response = await apiClient.post(
+                `api/diagnosis?type=${diagnosisType}`,
                 formData,
-                { headers: { 'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${accessToken}` },
-            });
+                { headers }
+            );
+    
             console.log('파일 업로드 성공:', response.data);
             alert('파일 업로드가 완료되었습니다.');
-            navigate(`/diagnosis/result/${response.data.id}`, { state: response.data.id });
-
+            
+            if (accessToken) {
+                navigate(`/diagnosis/result/${response.data.id}`, { state: response.data.id });
+            } else {
+                navigate(`/diagnosis/result/${response.data.id}`, { state: response.data});
+            }
+                
         } catch (error) {
             console.error('파일 업로드 실패:', error);
             alert('파일 업로드에 실패했습니다. 다시 진행해 주세요.');
         }
     };
+    
 
     return (
         <HomeContainer>
