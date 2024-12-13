@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import HomePage from "./page/Home/HomePage"
 import LoginPage from "./page/Login/LoginPage";
 import SignUpPage from "./page/SignUp/SignUpPage";
