@@ -1,7 +1,45 @@
 /** @jsxImportSource @emotion/react */
 import styled from "@emotion/styled";
 import logo from "../../assets/logo_b.png";
+import kining from "../../assets/kining.png";
 import { useNavigate } from "react-router-dom";
+
+function HomePage() {
+  const navigate = useNavigate();
+
+  const handleNavigation = (type: string) => {
+    navigate("/diagnosis", { state: { diagnosisType: type } });
+  };
+
+  const handleMyInfo = async () => {
+    navigate('/mypage');
+}
+
+  return (
+    <HomeContainer>
+      <Logo src={logo} alt="skini-Logo" />
+      <DiagnosisContainer>
+        <KiningImgWrapper>
+          <Text>피부 진단을 통해<br />대비하세요</Text>
+          <KiningImg src={kining}/>
+        </KiningImgWrapper>
+        <DiagnosisBtnContainer>
+          <DiagnosisBtn onClick={() => handleNavigation("cancer")}>
+            <DiagnosisBtnText>피부암</DiagnosisBtnText>
+          </DiagnosisBtn>
+          <DiagnosisBtn onClick={() => handleNavigation("illness")}>
+            <DiagnosisBtnText>피부<br />질환</DiagnosisBtnText>
+          </DiagnosisBtn>
+        </DiagnosisBtnContainer>
+      </DiagnosisContainer>
+      <MyInfoBtnWrapper>
+        <MyInfoBtn onClick={handleMyInfo}>내 정보</MyInfoBtn>
+      </MyInfoBtnWrapper>
+    </HomeContainer>
+  );
+}
+
+export default HomePage;
 
 const HomeContainer = styled.div`
   height: 100vh; /* 화면 전체 높이 */
@@ -28,7 +66,6 @@ const DiagnosisContainer = styled.div`
 
 const DiagnosisBtnContainer = styled.div`
   display: flex;
-  margin-top: 100px;
   justify-content: space-between;
 `;
 
@@ -77,36 +114,16 @@ const MyInfoBtn = styled.div`
   letter-spacing: 0.5px;
 `
 
-function HomePage() {
-  const navigate = useNavigate();
+const KiningImg = styled.img`
+  position: absolute;
+  width: 350px;
+  left: 43%;
+`;
 
-  const handleNavigation = (type: string) => {
-    navigate("/diagnosis", { state: { diagnosisType: type } });
-  };
-
-  const handleMyInfo = async () => {
-    navigate('/mypage');
-}
-
-  return (
-    <HomeContainer>
-      <Logo src={logo} alt="skini-Logo" />
-      <DiagnosisContainer>
-        <Text>피부 진단을 통해<br />대비하세요</Text>
-        <DiagnosisBtnContainer>
-          <DiagnosisBtn onClick={() => handleNavigation("cancer")}>
-            <DiagnosisBtnText>피부암</DiagnosisBtnText>
-          </DiagnosisBtn>
-          <DiagnosisBtn onClick={() => handleNavigation("illness")}>
-            <DiagnosisBtnText>피부<br />질환</DiagnosisBtnText>
-          </DiagnosisBtn>
-        </DiagnosisBtnContainer>
-      </DiagnosisContainer>
-      <MyInfoBtnWrapper>
-        <MyInfoBtn onClick={handleMyInfo}>내 정보</MyInfoBtn>
-      </MyInfoBtnWrapper>
-    </HomeContainer>
-  );
-}
-
-export default HomePage;
+const KiningImgWrapper = styled.div`
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 281px;
+`;
