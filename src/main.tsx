@@ -2,16 +2,16 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App';
-import { HashRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 const rootElement = document.getElementById('root');
 
 if (rootElement) {
   createRoot(rootElement).render(
     <React.StrictMode>
-      <HashRouter>
+      <BrowserRouter> {/* 여기서 HashRouter -> BrowserRouter로 변경 */}
         <App />
-      </HashRouter>
+      </BrowserRouter>
     </React.StrictMode>
   );
 } else {
