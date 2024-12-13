@@ -17,6 +17,9 @@ function App() {
 
   const Wrapper = styled.div`
   background-color: #f5f5f5; /* 배경색 */
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 `;
 
   return (
