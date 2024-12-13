@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import logo from "../../assets/logo_b.png";
 import { useNavigate } from "react-router-dom";
 import client from "@/client";
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 
 const HomeContainer = styled.div`
     display: flex;
@@ -73,7 +73,7 @@ function Info2() {
     gender: "",
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };

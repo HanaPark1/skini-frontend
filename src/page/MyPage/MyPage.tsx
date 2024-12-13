@@ -12,6 +12,7 @@ interface UserInfo {
 // 진단 기록 타입 정의
 interface Diagnosis {
     id: string;
+    imageUrl: string;
     result: string;
     confidenceScore: string;
     diagnosisType: string;

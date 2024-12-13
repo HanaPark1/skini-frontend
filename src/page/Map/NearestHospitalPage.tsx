@@ -4,44 +4,58 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import client from "@/client";
 
+interface Marker {
+  position: { lat: number; lng: number };
+  content: string;
+  address: string;
+  phone: string;
+}
+
 function NearestHospital() {
   const navigate = useNavigate();
-  const [markers, setMarkers] = useState([]); // 상태 정의
-  const [selectedMarker, setSelectedMarker] = useState(null);
-  const accessToken = sessionStorage.getItem('accessToken');
+  const [markers, setMarkers] = useState<Marker[]>([]); // 상태 타입 명시
+  const [selectedMarker, setSelectedMarker] = useState<Marker | null>(null);
+  const accessToken = sessionStorage.getItem("accessToken");
   const apiClient = client();
 
-  const handleData = (data) => {
+  const handleData = (data: Marker[]) => {
     setMarkers(data);
   };
 
-  const handleMarkerSelect = (marker) => {
+  const handleMarkerSelect = (marker: Marker) => {
     setSelectedMarker(marker); // 선택된 마커 정보 저장
   };
 
   const handleAddToFavorites = async () => {
     if (!selectedMarker) return;
-  
+    if (!accessToken) {
+      alert("로그인이 필요합니다.");
+      return;
+    }
+
     try {
       // 요청 데이터 구성
       const HospitalDto = {
-        "id": 1,
         hospitalName: selectedMarker.content,
         address: selectedMarker.address,
-        latitude: selectedMarker.position.lat || 0, // latitude 기본값 처리
-        longitude: selectedMarker.position.lng || 0, // longitude 기본값 처리
+        latitude: selectedMarker.position.lat, // 기본값 처리 제거
+        longitude: selectedMarker.position.lng,
         phoneNumber: selectedMarker.phone,
       };
-  
-      // POST 요청
-      const response = await apiClient.post("/api/favorites/hospital", HospitalDto, {
-        headers: { 'Authorization': `Bearer ${accessToken}` },
-    });
-  
-      if (response.status === 200) {
-        alert("즐겨찾기에 추가되었습니다!");
+
+      if (!apiClient) {
+        throw new Error('API 클라이언트를 생성할 수 없습니다.');
       } else {
-        alert("추가 중 문제가 발생했습니다.");
+        // POST 요청
+        const response = await apiClient.post("/api/favorites/hospital", HospitalDto, {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        });
+
+        if (response.status === 200) {
+          alert("즐겨찾기에 추가되었습니다!");
+        } else {
+          alert("추가 중 문제가 발생했습니다.");
+        }
       }
     } catch (error) {
       console.error("즐겨찾기 추가 오류:", error);
@@ -58,7 +72,7 @@ function NearestHospital() {
       </TopBarContainer>
       <Maps onMarkersChange={handleData} onMarkerSelect={handleMarkerSelect} /> {/* Props로 전달 */}
       <ResultWrapper>
-        {selectedMarker ? ( // 선택된 마커만 표시
+        {selectedMarker ? (
           <ResultItem>
             <CategoryContainer>
               <CategoryImg isSpecialist={selectedMarker.content.includes("피부과")} />
@@ -77,13 +91,13 @@ function NearestHospital() {
           </ResultItem>
         ) : (
           markers.map((marker, index) => {
-            const isSpecialist = marker.content.includes('피부과'); // 조건 확인
+            const isSpecialist = marker.content.includes("피부과"); // 조건 확인
             return (
               <ResultItem key={index}>
                 <CategoryContainer>
                   <CategoryImg isSpecialist={isSpecialist} />
                   <CategoryText>
-                    {isSpecialist ? '전문의' : '의원'}
+                    {isSpecialist ? "전문의" : "의원"}
                   </CategoryText>
                 </CategoryContainer>
                 <TitleWrapper>
@@ -97,7 +111,6 @@ function NearestHospital() {
             );
           })
         )}
-
       </ResultWrapper>
     </HomeContainer>
   );
@@ -105,16 +118,13 @@ function NearestHospital() {
 
 export default NearestHospital;
 
-
-
-
-
+// 스타일 정의
 const HomeContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: space-between;
-  height: 100vh; /* 화면 전체 높이 */
+  height: 100vh;
 `;
 
 const TopBarContainer = styled.div`
@@ -157,10 +167,14 @@ const CategoryContainer = styled.div`
   justify-content: space-between;
 `;
 
-const CategoryImg = styled.div`
+interface CategoryImgProps {
+  isSpecialist: boolean;
+}
+
+const CategoryImg = styled.div<CategoryImgProps>`
   width: 48px;
   height: 38px;
-  background-color: ${(props) => (props.isSpecialist ? 'red' : 'green')};
+  background-color: ${(props) => (props.isSpecialist ? "red" : "green")};
   border-radius: 10px;
 `;
 
@@ -178,18 +192,6 @@ const TitleWrapper = styled.div`
 const TitleText = styled.span`
   font-weight: bold;
   font-size: 30px;
-`;
-
-const DeleteWrapper = styled.div`
-  display: flex;
-  padding-top: 10px;
-`;
-
-const DeleteImg = styled.div`
-  width: 50px;
-  height: 55px;
-  background-color: #a7a1ae;
-  border-radius: 10px;
 `;
 
 const Button = styled.button`
