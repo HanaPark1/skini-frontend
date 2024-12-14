@@ -11,7 +11,7 @@ function HomePage() {
     navigate("/diagnosis", { state: { diagnosisType: type } });
   };
 
-  const handleMyInfo = async () => {
+  const handleMyInfo = () => {
     navigate('/mypage');
 }
 
@@ -24,10 +24,10 @@ function HomePage() {
           <KiningImg src={kining}/>
         </KiningImgWrapper>
         <DiagnosisBtnContainer>
-          <DiagnosisBtn onClick={() => handleNavigation("cancer")}>
+          <DiagnosisBtn onClick={() => handleNavigation("CANCER")}>
             <DiagnosisBtnText>피부암</DiagnosisBtnText>
           </DiagnosisBtn>
-          <DiagnosisBtn onClick={() => handleNavigation("illness")}>
+          <DiagnosisBtn onClick={() => handleNavigation("DISEASE")}>
             <DiagnosisBtnText>피부<br />질환</DiagnosisBtnText>
           </DiagnosisBtn>
         </DiagnosisBtnContainer>

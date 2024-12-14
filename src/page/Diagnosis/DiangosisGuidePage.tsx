@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 // DiagnosisGuidePage Props 타입 선언
 interface DiagnosisGuidePageProps {
-    diagnosisType: "cancer" | "illness"; // diagnosis는 선택적이고 특정 문자열 값만 가짐
+    diagnosisType: "CANCER" | "DISEASE"; // diagnosis는 선택적이고 특정 문자열 값만 가짐
 }
 
 function DiagnosisGuidePage() {
@@ -15,18 +15,18 @@ function DiagnosisGuidePage() {
     let diagnosisTypeText = "";
 
     switch (diagnosisType) {
-        case "cancer":
+        case "CANCER":
             diagnosisTypeText = "피부암 - 피부진단";
             break;
-        case "illness":
+        case "DISEASE":
             diagnosisTypeText = "피부질환 - 피부진단";
             break;
         default:
             diagnosisTypeText = "알 수 없음";
     }
 
-    const handleUpload = async () => {
-        navigate('/diagnosis/upload');
+    const handleUpload = (type: string) => () => {
+        navigate('/diagnosis/upload' , { state: { diagnosisType: type } });
     };
 
 
@@ -42,7 +42,7 @@ function DiagnosisGuidePage() {
               <GuideText>2. 확인이 필요한 부위를 가리지 않고 촬영해 주세요</GuideText>
               <GuideText>3. 이미지의 초점이 맞는지 확인해 주세요</GuideText>
             </GuideWrapper>
-            <BottomBtn onClick={handleUpload}>확인</BottomBtn>
+            <BottomBtn onClick={handleUpload(diagnosisType)}>확인</BottomBtn>
         </HomeContainer>
     );
 }

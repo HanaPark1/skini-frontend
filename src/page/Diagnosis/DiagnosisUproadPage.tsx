@@ -1,14 +1,25 @@
 import styled from "@emotion/styled";
 import camera from "../../assets/Camera.png";
 import { useState, useRef } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import client from "@/client";
 
+interface DiagnosisGuidePageProps {
+    diagnosisType: "CANCER" | "DISEASE"; // diagnosis는 선택적이고 특정 문자열 값만 가짐
+}
 const DiagnosisUproadPage = () => {
+    const location = useLocation();
+    const { diagnosisType } = location.state as DiagnosisGuidePageProps;  // state에서 받음
     const navigate = useNavigate();
     const [file, setFile] = useState<File | null>(null); // 파일 상태 관리
     const [imagePreview, setImagePreview] = useState<string | null>(null); // 이미지 미리보기 상태 관리
     const fileInputRef = useRef<HTMLInputElement>(null); // 파일 input을 참조
+
+    const diagnosisTypeText = diagnosisType === "CANCER" 
+        ? "피부암 - 피부진단" 
+        : diagnosisType === "DISEASE"
+        ? "피부질환 - 피부진단"
+        : "알 수 없음";
 
     // 파일 선택 처리 함수
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,13 +38,12 @@ const DiagnosisUproadPage = () => {
         }
     };
 
-    const handleSubmit = async () => {
+    const handleSubmit = async() => {
         if (!file) {
             alert('파일을 선택해 주세요.');
             return;
         }
     
-        const diagnosisType = 'CANCER'; // 'CANCER' 또는 'DISEASE'
         const formData = new FormData();
         formData.append('file', file); // 이미지 파일 추가
     
@@ -72,7 +82,7 @@ const DiagnosisUproadPage = () => {
         <HomeContainer>
             <TopBarContainer>
                 <TopBarText onClick={()=> {navigate(-1)}}>&lt;</TopBarText>
-                <TopBarText>피부진단</TopBarText>
+                <TopBarText>{diagnosisTypeText}</TopBarText>
                 <TopBarText>&nbsp;</TopBarText>
             </TopBarContainer>
             {/* 이미지 미리보기 */}
