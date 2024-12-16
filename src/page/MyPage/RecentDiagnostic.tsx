@@ -31,7 +31,8 @@ function RecentDiagnostic() {
             console.log(response.data);
             setDiagnosisList(response.data); // 'data'에 접근 가능
         } catch (error) {
-            console.error("Error fetching diagnosis data:", error);
+            alert("로그인을 해 주세요");
+            navigate('/login');
         }
     };
 

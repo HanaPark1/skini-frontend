@@ -91,16 +91,33 @@ function MyPage(): JSX.Element {
         if (!apiClient) {
             throw new Error('API 클라이언트를 생성할 수 없습니다.');
         }
+
+        const refreshToken = document.cookie.replace(/(?:(?:^|.*;\s*)refreshToken\s*=\s*([^;]*).*$)|^.*$/, "$1");
+    
         try {
-            await apiClient.post('/api/logout');
+            // 로그아웃 API 호출
+            await apiClient.post('/api/logout', {}, {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                    'refresh': refreshToken // 리프레시 토큰을 헤더로 보냄
+                }
+            });
+    
+            // 쿠키에서 리프레시 토큰 삭제
+            document.cookie = 'refreshToken=; Max-Age=0; Secure; HttpOnly; SameSite=Strict';
+    
+            // 세션에서 액세스 토큰 삭제
+            sessionStorage.removeItem('accessToken');  // sessionStorage에서 토큰 삭제
+            // 또는 localStorage 사용 시 localStorage.removeItem('accessToken');
+    
             alert("로그아웃되었습니다");
-            navigate('/login');
+            navigate('/');  // 홈으로 리디렉션
         } catch (error) {
             console.error("Error Logout user:", error);
             alert("로그아웃에 실패했습니다. 다시 시도해주세요.");
         }
     };
-
+    
     useEffect(() => {
         fetchUserInfo();
     }, []);

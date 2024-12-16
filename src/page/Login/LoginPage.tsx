@@ -19,10 +19,15 @@ export const login = async (loginId: string, password: string): Promise<boolean>
     const refreshToken = response.headers['refresh'];
 
     if (accessToken && refreshToken) {
+      // sessionStorage에 accessToken 저장
       sessionStorage.setItem('accessToken', accessToken);
-      document.cookie = `refreshToken=${refreshToken}; Secure; HttpOnly; SameSite=Strict`;
+
+      // 쿠키에 refreshToken 저장
+      document.cookie = `refreshToken=${refreshToken}; path=/; max-age=31536000`;  // 쿠키가 만료되는 시간 설정
 
       console.log('로그인 성공!');
+      console.log('Access Token:', accessToken);
+      console.log('Refresh Token:', refreshToken);  // 콘솔에 리프레시 토큰 출력
       return true; // 성공 시 true 반환
     } else {
       throw new Error('토큰이 없습니다.');
@@ -33,6 +38,7 @@ export const login = async (loginId: string, password: string): Promise<boolean>
     return false; // 실패 시 false 반환
   }
 };
+
 
 function LoginPage() {
   const [loginId, setLoginId] = useState("");
