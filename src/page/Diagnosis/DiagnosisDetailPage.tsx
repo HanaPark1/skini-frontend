@@ -239,8 +239,11 @@ const ResultDescriptorContainer = styled.div`
 `
 
 const ResultDescriptorText = styled.span`
-    font-size: 28px;
-    margin: 10px 0 10px 0;
+    font-size: 25px;
+    margin: 10px;
+    line-height: 1.5; /* 줄 간격 조정 */
+    // word-break: break-word; /* 단어 줄바꿈 */
+    white-space: pre-wrap; /* 공백과 줄바꿈 유지 */
 `
 
 const Line = styled.div`
