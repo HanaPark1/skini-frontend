@@ -102,41 +102,62 @@ function DiagnosisDetailPage() {
                 <TopBarText>상세 진단</TopBarText>
                 <TopBarText>&nbsp; </TopBarText>
             </TopBarContainer>
-            <DetailContainer>
-                <CategoryContainer>
-                    <CategoryImg />
-                    <CategoryText>
-                        {diagnosisResult.diagnosisType === 'CANCER'
-                            ? '피부암'
-                            : diagnosisResult.diagnosisType === 'DISEASE'
-                                ? '피부 질환'
-                                : diagnosisResult.diagnosisType}
-                    </CategoryText>
-                </CategoryContainer>
-                <TextContainer>
-                    <DateNTitleContainer>
-                        <DateText>{diagnosisResult.createdAt}</DateText>
-                        <TitleText>{diagnosisInfo ? diagnosisInfo.korName : '로딩 중...'}</TitleText>
-                    </DateNTitleContainer>
-                    <ScoreText>{diagnosisResult.confidenceScore}%</ScoreText>
-                </TextContainer>
-                <ResultImg src={diagnosisResult.imageUrl} />
-            </DetailContainer>
-            <ResultWrapper>
-                <Line />
-                <ResultDescriptorContainer>
-                    <TitleText>진단 상세 설명</TitleText>
-                    <ResultDescriptorText>{diagnosisInfo ? diagnosisInfo.description : '추가 정보 로딩 중...'}</ResultDescriptorText>
-                </ResultDescriptorContainer>
-                <ResultDescriptorContainer>
-                    <TitleText>치료법 및 대처법</TitleText>
-                    <ResultDescriptorText>{diagnosisInfo ? diagnosisInfo.guideline : '추가 정보 로딩 중...'}</ResultDescriptorText>
-                </ResultDescriptorContainer>
-            </ResultWrapper>
-            <BottomBtnContainer>
-                <HalfBtn onClick={handleNear}>가까운<br /> 병원</HalfBtn>
-                <HalfBtn onClick={handleList}>진단 기록</HalfBtn>
-            </BottomBtnContainer>
+
+            {/* isPositive가 false일 경우 메시지 표시 */}
+            {diagnosisResult.isPositive === false ? (
+                <ResultWrapper>
+                    <Line />
+                    <ResultDescriptorContainer>
+                        <TitleText>진단 결과</TitleText>
+                        <ResultDescriptorText>
+                            {`진단 결과 ${diagnosisResult.diagnosisType === 'CANCER' ? '피부암' : '피부질환'}이 아닙니다.`}
+                        </ResultDescriptorText>
+                    </ResultDescriptorContainer>
+                    <BottomBtnContainer>
+                        <HalfBtn onClick={handleNear}>가까운<br /> 병원</HalfBtn>
+                        <HalfBtn onClick={handleList}>진단 기록</HalfBtn>
+                    </BottomBtnContainer>
+                </ResultWrapper>
+            ) : (
+                <>
+                    {/* 기존 UI (isPositive가 true일 때) */}
+                    <DetailContainer>
+                        <CategoryContainer>
+                            <CategoryImg />
+                            <CategoryText>
+                                {diagnosisResult.diagnosisType === 'CANCER'
+                                    ? '피부암'
+                                    : diagnosisResult.diagnosisType === 'DISEASE'
+                                        ? '피부 질환'
+                                        : diagnosisResult.diagnosisType}
+                            </CategoryText>
+                        </CategoryContainer>
+                        <TextContainer>
+                            <DateNTitleContainer>
+                                <DateText>{diagnosisResult.createdAt}</DateText>
+                                <TitleText>{diagnosisInfo ? diagnosisInfo.korName : '로딩 중...'}</TitleText>
+                            </DateNTitleContainer>
+                            <ScoreText>{diagnosisResult.confidenceScore}%</ScoreText>
+                        </TextContainer>
+                        <ResultImg src={diagnosisResult.imageUrl} />
+                    </DetailContainer>
+                    <ResultWrapper>
+                        <Line />
+                        <ResultDescriptorContainer>
+                            <TitleText>진단 상세 설명</TitleText>
+                            <ResultDescriptorText>{diagnosisInfo ? diagnosisInfo.description : '추가 정보 로딩 중...'}</ResultDescriptorText>
+                        </ResultDescriptorContainer>
+                        <ResultDescriptorContainer>
+                            <TitleText>치료법 및 대처법</TitleText>
+                            <ResultDescriptorText>{diagnosisInfo ? diagnosisInfo.guideline : '추가 정보 로딩 중...'}</ResultDescriptorText>
+                        </ResultDescriptorContainer>
+                    </ResultWrapper>
+                    <BottomBtnContainer>
+                        <HalfBtn onClick={handleNear}>가까운<br /> 병원</HalfBtn>
+                        <HalfBtn onClick={handleList}>진단 기록</HalfBtn>
+                    </BottomBtnContainer>
+                </>
+            )}
         </HomeContainer>
     );
 }
@@ -152,10 +173,11 @@ const HomeContainer = styled.div`
 `;
 
 const TopBarContainer = styled.div`
-    margin-top: 85px;
+    margin: 85px 0 39px 0;
     width: 100%;
     display: flex;
     justify-content: space-between;
+
 `
 
 const TopBarText = styled.span`
@@ -166,7 +188,7 @@ const TopBarText = styled.span`
 const DetailContainer = styled.div`
     width: 334px;
     height: 65px;
-    margin: 39px 0px 20px 34px;
+    margin: 0px 0px 20px 34px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
