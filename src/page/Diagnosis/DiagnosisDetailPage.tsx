@@ -36,16 +36,16 @@ function DiagnosisDetailPage() {
                 console.error("API 클라이언트가 생성되지 않았습니다.");
             } else {
                 const headers: Record<string, string> = {};
-    
+
                 const accessToken = sessionStorage.getItem('accessToken');
                 if (accessToken) {
                     headers['Authorization'] = `Bearer ${accessToken}`;
                 }
-    
+
                 const response = await apiClient.get(`/api/diagnosis/${diagnosisId}`, {
                     headers: headers, // 헤더를 조건에 맞게 설정
                 });
-    
+
                 const data = response.data;
                 if (data.confidenceScore) {
                     data.confidenceScore = data.confidenceScore.split('.')[0];
@@ -56,11 +56,11 @@ function DiagnosisDetailPage() {
             console.error('Error fetching diagnosis data:', error);
         }
     };
-    
+
 
     const fetchDiagnosisInfoData = async (result: Diagnosis) => {
         console.log(result.result);
-        
+
         try {
             if (!apiClient) {
                 console.error("API 클라이언트가 생성되지 않았습니다.");
@@ -68,7 +68,7 @@ function DiagnosisDetailPage() {
                 const response = await apiClient.get(`/api/diagnosis_info?name=${result.result}`);
                 setDiagnosisInfo(response.data); // 추가 데이터 저장
             }
-            
+
         } catch (error) {
             console.error('Error fetching additional data:', error);
         }
@@ -95,7 +95,7 @@ function DiagnosisDetailPage() {
     if (!diagnosisResult) {
         return <div>로딩 중...</div>;
     }
-        return (
+    return (
         <HomeContainer>
             <TopBarContainer>
                 <TopBarText onClick={() => navigate(-1)}>&lt;</TopBarText>
@@ -105,7 +105,13 @@ function DiagnosisDetailPage() {
             <DetailContainer>
                 <CategoryContainer>
                     <CategoryImg />
-                    <CategoryText>{diagnosisResult.diagnosisType}</CategoryText>
+                    <CategoryText>
+                        {diagnosisResult.diagnosisType === 'CANCER'
+                            ? '피부암'
+                            : diagnosisResult.diagnosisType === 'DISEASE'
+                                ? '피부 질환'
+                                : diagnosisResult.diagnosisType}
+                    </CategoryText>
                 </CategoryContainer>
                 <TextContainer>
                     <DateNTitleContainer>
