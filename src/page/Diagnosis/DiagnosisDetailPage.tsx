@@ -24,9 +24,8 @@ interface DiagnosisInfo {
 function DiagnosisDetailPage() {
     const apiClient = client();
     const location = useLocation();
-    const diagnosisId = location.state; // 전달된 데이터
+    const diagnosisId = location.state;
     const navigate = useNavigate();
-    const accessToken = sessionStorage.getItem('accessToken');
     const [diagnosisResult, setDiagnosisResult] = useState<Diagnosis | null>(null);
     const [diagnosisInfo, setDiagnosisInfo] = useState<DiagnosisInfo | null>(null);
 
@@ -36,24 +35,32 @@ function DiagnosisDetailPage() {
             if (!apiClient) {
                 console.error("API 클라이언트가 생성되지 않았습니다.");
             } else {
+                const headers: Record<string, string> = {};
+
+                const accessToken = sessionStorage.getItem('accessToken');
+                if (accessToken) {
+                    headers['Authorization'] = `Bearer ${accessToken}`;
+                }
+
                 const response = await apiClient.get(`/api/diagnosis/${diagnosisId}`, {
-                    headers: { Authorization: `Bearer ${accessToken}` },
+                    headers: headers, // 헤더를 조건에 맞게 설정
                 });
+
                 const data = response.data;
                 if (data.confidenceScore) {
                     data.confidenceScore = data.confidenceScore.split('.')[0];
                 }
                 setDiagnosisResult(data); // 'data'에 접근 가능
             }
-            
         } catch (error) {
             console.error('Error fetching diagnosis data:', error);
         }
     };
 
+
     const fetchDiagnosisInfoData = async (result: Diagnosis) => {
         console.log(result.result);
-        
+
         try {
             if (!apiClient) {
                 console.error("API 클라이언트가 생성되지 않았습니다.");
@@ -61,7 +68,7 @@ function DiagnosisDetailPage() {
                 const response = await apiClient.get(`/api/diagnosis_info?name=${result.result}`);
                 setDiagnosisInfo(response.data); // 추가 데이터 저장
             }
-            
+
         } catch (error) {
             console.error('Error fetching additional data:', error);
         }
@@ -88,7 +95,7 @@ function DiagnosisDetailPage() {
     if (!diagnosisResult) {
         return <div>로딩 중...</div>;
     }
-        return (
+    return (
         <HomeContainer>
             <TopBarContainer>
                 <TopBarText onClick={() => navigate(-1)}>&lt;</TopBarText>
@@ -98,12 +105,18 @@ function DiagnosisDetailPage() {
             <DetailContainer>
                 <CategoryContainer>
                     <CategoryImg />
-                    <CategoryText>{diagnosisResult.diagnosisType}</CategoryText>
+                    <CategoryText>
+                        {diagnosisResult.diagnosisType === 'CANCER'
+                            ? '피부암'
+                            : diagnosisResult.diagnosisType === 'DISEASE'
+                                ? '피부 질환'
+                                : diagnosisResult.diagnosisType}
+                    </CategoryText>
                 </CategoryContainer>
                 <TextContainer>
                     <DateNTitleContainer>
                         <DateText>{diagnosisResult.createdAt}</DateText>
-                        <TitleText>{diagnosisResult.result}</TitleText>
+                        <TitleText>{diagnosisInfo ? diagnosisInfo.korName : '로딩 중...'}</TitleText>
                     </DateNTitleContainer>
                     <ScoreText>{diagnosisResult.confidenceScore}%</ScoreText>
                 </TextContainer>
@@ -232,8 +245,11 @@ const ResultDescriptorContainer = styled.div`
 `
 
 const ResultDescriptorText = styled.span`
-    font-size: 28px;
-    margin: 10px 0 10px 0;
+    font-size: 25px;
+    margin: 10px;
+    line-height: 1.5; /* 줄 간격 조정 */
+    // word-break: break-word; /* 단어 줄바꿈 */
+    white-space: pre-wrap; /* 공백과 줄바꿈 유지 */
 `
 
 const Line = styled.div`

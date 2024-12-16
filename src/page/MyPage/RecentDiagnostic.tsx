@@ -14,7 +14,7 @@ function RecentDiagnostic() {
     interface Diagnosis {
         id: string;
         result: string;
-        confidenceScore: number;
+        confidenceScore: string;
         diagnosisType: string;
         imageUrl: string;
     }
@@ -28,10 +28,15 @@ function RecentDiagnostic() {
             const response = await apiClient.get('/api/diagnosis', {
                 headers: { 'Authorization': `Bearer ${accessToken}` },
             });
+            console.log(response.data);
             setDiagnosisList(response.data); // 'data'에 접근 가능
         } catch (error) {
             console.error("Error fetching diagnosis data:", error);
         }
+    };
+
+    const handleOpen = async (id: string) => {
+        navigate(`/diagnosis/result/${id}` , {state: id});
     };
 
     useEffect(() => {
@@ -61,10 +66,16 @@ function RecentDiagnostic() {
                 <TopBarText>&nbsp; </TopBarText>
             </TopBarContainer>
             {diagnosisList?.map((diagnosis) => (
-                <DetailContainer key={diagnosis.id}>
+                <DetailContainer key={diagnosis.id} onClick={() => {handleOpen(diagnosis.id)}}>
                     <CategoryContainer>
                         <CategoryImg />
-                        <CategoryText>{diagnosis.diagnosisType}</CategoryText>
+                        <CategoryText>
+                            {diagnosis.diagnosisType === 'CANCER'
+                                ? '피부암'
+                                : diagnosis.diagnosisType === 'DISEASE'
+                                    ? '피부 질환'
+                                    : diagnosis.diagnosisType}
+                        </CategoryText>
                     </CategoryContainer>
                     <ResultImg src={diagnosis.imageUrl} />
                     <TextContainer>
@@ -72,7 +83,7 @@ function RecentDiagnostic() {
                             <DateText>24.11.05</DateText>
                             <TitleText>{diagnosis.result}</TitleText>
                         </DateNTitleContainer>
-                        <ScoreText>{Math.floor(diagnosis.confidenceScore)}</ScoreText>
+                        <ScoreText>{diagnosis.confidenceScore}</ScoreText>
                     </TextContainer>
                     <DeleteBtn src={deleteIcon} onClick={() => handleDelete(diagnosis.id)} />
                 </DetailContainer>

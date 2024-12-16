@@ -50,6 +50,20 @@ function MyPage(): JSX.Element {
         }
     };
 
+    const handleLogout = async (): Promise<void> => {
+        if (!apiClient) {
+            throw new Error('API 클라이언트를 생성할 수 없습니다.');
+        }
+        try {
+            await apiClient.post('/api/logout');
+            alert("로그아웃되었습니다");
+            navigate('/login');
+        } catch (error) {
+            console.error("Error Logout user:", error);
+            alert("로그아웃에 실패했습니다. 다시 시도해주세요.");
+        }
+    };
+
     const handleList = (): void => {
         navigate('/mypage/diagnostic');
     }; 
@@ -99,6 +113,7 @@ function MyPage(): JSX.Element {
                 </ProfileContainer>
                 <ProfileBtn onClick={handleMyInfo}>개인정보 조회</ProfileBtn>
                 <DeleteUserWrapper>
+                    <DeleteUserBtn onClick={handleLogout}>로그아웃</DeleteUserBtn>
                     <DeleteUserBtn onClick={handleDelete}>탈퇴하기</DeleteUserBtn>
                 </DeleteUserWrapper>
             </MyInfoContainer>
@@ -115,7 +130,7 @@ function MyPage(): JSX.Element {
                         <ItemWrapper key={diagnosis.id} imageUrl={diagnosis.imageUrl} onClick={() => {handleOpen(diagnosis.id)}}>
                             <div>
                                 <p><strong>진단 결과:</strong> {diagnosis.result}</p>
-                                <p><strong>확신도:</strong> {diagnosis.confidenceScore.split('.')[0]}</p>
+                                <p><strong>신뢰도: </strong>:{diagnosis.confidenceScore.split('.')[0]}</p>
                                 <p><strong>유형:</strong> {diagnosis.diagnosisType}</p>
                             </div>
                         </ItemWrapper>

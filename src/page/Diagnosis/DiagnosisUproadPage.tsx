@@ -1,14 +1,25 @@
 import styled from "@emotion/styled";
 import camera from "../../assets/Camera.png";
 import { useState, useRef } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import client from "@/client";
 
+interface DiagnosisGuidePageProps {
+    diagnosisType: "CANCER" | "DISEASE"; // diagnosis는 선택적이고 특정 문자열 값만 가짐
+}
 const DiagnosisUproadPage = () => {
+    const location = useLocation();
+    const { diagnosisType } = location.state as DiagnosisGuidePageProps;  // state에서 받음
     const navigate = useNavigate();
     const [file, setFile] = useState<File | null>(null); // 파일 상태 관리
     const [imagePreview, setImagePreview] = useState<string | null>(null); // 이미지 미리보기 상태 관리
     const fileInputRef = useRef<HTMLInputElement>(null); // 파일 input을 참조
+
+    const diagnosisTypeText = diagnosisType === "CANCER"
+        ? "피부암 - 피부진단"
+        : diagnosisType === "DISEASE"
+            ? "피부질환 - 피부진단"
+            : "알 수 없음";
 
     // 파일 선택 처리 함수
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,53 +43,51 @@ const DiagnosisUproadPage = () => {
             alert('파일을 선택해 주세요.');
             return;
         }
-    
-        const diagnosisType = 'CANCER'; // 'CANCER' 또는 'DISEASE'
+
         const formData = new FormData();
         formData.append('file', file); // 이미지 파일 추가
-    
+
         const apiClient = client();
         if (!apiClient) {
             throw new Error('API 클라이언트를 생성할 수 없습니다.');
         }
-    
+
         try {
             const headers: Record<string, string> = { 'Content-Type': 'multipart/form-data' };
-    
+
             const accessToken = sessionStorage.getItem('accessToken'); // 세션에서 토큰 가져오기
             if (accessToken) {
                 headers['Authorization'] = `Bearer ${accessToken}`;
             }
-    
+
             const response = await apiClient.post(
                 `api/diagnosis?type=${diagnosisType}`,
                 formData,
                 { headers }
             );
-    
+
             console.log('파일 업로드 성공:', response.data);
             alert('파일 업로드가 완료되었습니다.');
-            
-            if (accessToken) {
-                navigate(`/diagnosis/result/${response.data.id}`, { state: response.data.id });
-            } else {
-                navigate(`/diagnosis/result/${response.data.id}`, { state: response.data});
-            }
-                
+
+            navigate(`/diagnosis/result/${response.data.id}`, { state: response.data.id });
+
         } catch (error) {
             console.error('파일 업로드 실패:', error);
             alert('파일 업로드에 실패했습니다. 다시 진행해 주세요.');
         }
     };
-    
+
 
     return (
         <HomeContainer>
             <TopBarContainer>
-                <TopBarText onClick={()=> {navigate(-1)}}>&lt;</TopBarText>
-                <TopBarText>피부진단</TopBarText>
+                <TopBarText onClick={() => { navigate(-1) }}>&lt;</TopBarText>
+                <TopBarText>{diagnosisTypeText}</TopBarText>
                 <TopBarText>&nbsp;</TopBarText>
             </TopBarContainer>
+            <DescriptionText>
+                카메라 아이콘을 눌러 이미지를 선택하세요
+            </DescriptionText>
             {/* 이미지 미리보기 */}
             <CameraImg
                 src={imagePreview || camera} // 이미지 미리보기 없으면 카메라 이미지
@@ -92,9 +101,9 @@ const DiagnosisUproadPage = () => {
                 ref={fileInputRef}
                 style={{ display: 'none' }} // 파일 input을 숨김
                 onChange={handleFileChange}
-            />  
+            />
 
-            <BottomBtn onClick={handleSubmit}>이미지 선택</BottomBtn>
+            <BottomBtn onClick={handleSubmit}>진단하기</BottomBtn>
         </HomeContainer>
     );
 };
@@ -120,6 +129,11 @@ const TopBarText = styled.span`
     font-size: 38px;
 `;
 
+const DescriptionText = styled.span`
+    font-size: 24px;
+    margin-top: 20px;
+`;
+
 const CameraImg = styled.img`
     width: 277px;
     height: 277px;
@@ -143,3 +157,4 @@ const BottomBtn = styled.div`
     font-size: 50px;
     font-weight: 600;
 `;
+
