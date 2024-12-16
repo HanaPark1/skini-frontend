@@ -236,6 +236,7 @@ const ResultWrapper = styled.div`
     border-radius: 10px;
     box-shadow: 0px 4px 50px 0px rgba(0, 0, 0, 0.25);
     padding: 20px 20px 180px 20px;
+    overflow-y: auto; /* 스크롤 가능하도록 설정 */
 `
 
 const ResultDescriptorContainer = styled.div`
