@@ -130,7 +130,7 @@ function MyPage(): JSX.Element {
                         <ItemWrapper key={diagnosis.id} imageUrl={diagnosis.imageUrl} onClick={() => {handleOpen(diagnosis.id)}}>
                             <div>
                                 <p><strong>진단 결과:</strong> {diagnosis.result}</p>
-                                <p><strong>확신도:</strong> {diagnosis.confidenceScore.split('.')[0]}</p>
+                                <p><strong>신뢰도: </strong>:{diagnosis.confidenceScore.split('.')[0]}</p>
                                 <p><strong>유형:</strong> {diagnosis.diagnosisType}</p>
                             </div>
                         </ItemWrapper>
