@@ -31,12 +31,13 @@ function RecentDiagnostic() {
             console.log(response.data);
             setDiagnosisList(response.data); // 'data'에 접근 가능
         } catch (error) {
-            console.error("Error fetching diagnosis data:", error);
+            alert("로그인을 해 주세요");
+            navigate('/login');
         }
     };
 
     const handleOpen = async (id: string) => {
-        navigate(`/diagnosis/result/${id}` , {state: id});
+        navigate(`/diagnosis/result/${id}`, { state: id });
     };
 
     useEffect(() => {
@@ -66,25 +67,27 @@ function RecentDiagnostic() {
                 <TopBarText>&nbsp; </TopBarText>
             </TopBarContainer>
             {diagnosisList?.map((diagnosis) => (
-                <DetailContainer key={diagnosis.id} onClick={() => {handleOpen(diagnosis.id)}}>
-                    <CategoryContainer>
-                        <CategoryImg />
-                        <CategoryText>
-                            {diagnosis.diagnosisType === 'CANCER'
-                                ? '피부암'
-                                : diagnosis.diagnosisType === 'DISEASE'
-                                    ? '피부 질환'
-                                    : diagnosis.diagnosisType}
-                        </CategoryText>
-                    </CategoryContainer>
-                    <ResultImg src={diagnosis.imageUrl} />
-                    <TextContainer>
-                        <DateNTitleContainer>
-                            <DateText>24.11.05</DateText>
-                            <TitleText>{diagnosis.result}</TitleText>
-                        </DateNTitleContainer>
-                        <ScoreText>{diagnosis.confidenceScore}</ScoreText>
-                    </TextContainer>
+                <DetailContainer key={diagnosis.id}>
+                    <ResultClickContainer onClick={() => { handleOpen(diagnosis.id) }}>
+                        <CategoryContainer>
+                            <CategoryImg />
+                            <CategoryText>
+                                {diagnosis.diagnosisType === 'CANCER'
+                                    ? '피부암'
+                                    : diagnosis.diagnosisType === 'DISEASE'
+                                        ? '피부 질환'
+                                        : diagnosis.diagnosisType}
+                            </CategoryText>
+                        </CategoryContainer>
+                        <ResultImg src={diagnosis.imageUrl} />
+                        <TextContainer>
+                            <DateNTitleContainer>
+                                <DateText>&nbsp;</DateText>
+                                <TitleText>{diagnosis.result}</TitleText>
+                            </DateNTitleContainer>
+                            <ScoreText>{diagnosis.confidenceScore}</ScoreText>
+                        </TextContainer>
+                    </ResultClickContainer>
                     <DeleteBtn src={deleteIcon} onClick={() => handleDelete(diagnosis.id)} />
                 </DetailContainer>
             ))}
@@ -183,4 +186,10 @@ const TopBarContainer = styled.div`
 const TopBarText = styled.span`
     font-weight: bold;
     font-size: 38px;
+`
+
+const ResultClickContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 `
