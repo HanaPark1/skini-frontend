@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import styled from "@emotion/styled";
+import kining2 from "../../assets/kining2.png"
 import logo from "../../assets/logo_b.png";
 import { useNavigate } from "react-router-dom";
 
@@ -16,18 +17,14 @@ const Logo = styled.img`
   height: 60px;
 `;
 
-const ImgWrapper = styled.div`
-    width: 319px;
-    height: 239px;
-    background-color: blue;
-    border-radius: 25px;
-    margin-top: 123px;
+const ImgWrapper = styled.img`
+    margin-top: 30px;
+    overflow: hidden;
 `
 
 const TextContainer = styled.div`
     width: 366px;
     height: 166px;
-    margin-top: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -71,7 +68,7 @@ function SignUpPage() {
   return (
     <HomeContainer>
         <Logo src={logo} alt="skini-Logo" />
-        <ImgWrapper/>
+        <ImgWrapper src={kining2}/>
         <TextContainer>
             <Title>피부 상담사 스키니</Title>
             <Description>저는 피부암/질환 자가진단 및 병원 안내 상담사예요
