@@ -265,37 +265,32 @@ s`,wf=S.div`
   font-size: 25px;
   font-weight: bold;
   color: #777;
-`;function Mw(){const e=$e(),[t,n]=k.useState({username:"",loginId:"",password:"",email:"",age:0,gender:""}),r=i=>{const{name:l,value:s}=i.target;n({...t,[l]:s})};return B(Ow,{children:[N(Iw,{src:So,alt:"skini-Logo"}),N(Tr,{name:"username",placeholder:"사용자 이름",onChange:r}),N(Tr,{name:"loginId",placeholder:"아이디",onChange:r}),N(Tr,{name:"password",type:"password",placeholder:"비밀번호",onChange:r}),N(Tr,{name:"email",type:"email",placeholder:"이메일",onChange:r}),N(Tr,{name:"age",type:"number",placeholder:"나이",onChange:r}),B(Dw,{name:"gender",onChange:r,children:[N("option",{value:"",children:"성별 선택"}),N("option",{value:"MALE",children:"남성"}),N("option",{value:"FEMALE",children:"여성"})]}),N(zw,{onClick:async()=>{const i=at();if(!i)throw new Error("API 클라이언트를 생성할 수 없습니다.");try{(await i.post("/api/join",{...t,age:Number(t.age)})).status===200&&e("/signup/success",{state:t.username})}catch(l){console.error("회원가입 요청 실패:",l)}},children:"입력 완료"})]})}const Fw=S.div`
+`;function Mw(){const e=$e(),[t,n]=k.useState({username:"",loginId:"",password:"",email:"",age:0,gender:""}),r=i=>{const{name:l,value:s}=i.target;n({...t,[l]:s})};return B(Ow,{children:[N(Iw,{src:So,alt:"skini-Logo"}),N(Tr,{name:"username",placeholder:"사용자 이름",onChange:r}),N(Tr,{name:"loginId",placeholder:"아이디",onChange:r}),N(Tr,{name:"password",type:"password",placeholder:"비밀번호",onChange:r}),N(Tr,{name:"email",type:"email",placeholder:"이메일",onChange:r}),N(Tr,{name:"age",type:"number",placeholder:"나이",onChange:r}),B(Dw,{name:"gender",onChange:r,children:[N("option",{value:"",children:"성별 선택"}),N("option",{value:"MALE",children:"남성"}),N("option",{value:"FEMALE",children:"여성"})]}),N(zw,{onClick:async()=>{const i=at();if(!i)throw new Error("API 클라이언트를 생성할 수 없습니다.");try{(await i.post("/api/join",{...t,age:Number(t.age)})).status===200&&e("/signup/success",{state:t.username})}catch(l){console.error("회원가입 요청 실패:",l)}},children:"입력 완료"})]})}const Fw="/assets/kining3-CTOktUF0.png",$w=S.div`
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     height: 100vh; /* 화면 전체 높이 */
-`,$w=S.img`
+`,Bw=S.img`
   width: 220px;
   height: 60px;
-`,Bw=S.div`
-    width: 319px;
-    height: 239px;
-    background-color: red;
-    border-radius: 25px;
-    margin-top: 123px;
-`,Uw=S.div`
+`,Uw=S.img`
+    margin-top: 100px;
+`,bw=S.div`
     width: 366px;
     height: 166px;
-    margin-top: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-`,bw=S.span`
+`,Hw=S.span`
     font-size: 30px;
     font-weight: 400;
-`,Hw=S.span`
+`,Ww=S.span`
     font-size: 18px;
     font-weight: 300;
     margin-top: 16px;
-`,Ww=S.div`
+`,Vw=S.div`
     position: fixed; /* 화면에 고정 */
     bottom: 0; /* 화면의 가장 아래로 이동 */
     left: 0; /* 왼쪽 끝에 맞춤 */
@@ -310,12 +305,12 @@ s`,wf=S.div`
     color: white;
     font-size: 50px;
     font-weight: 600;
-`;function Vw(){const t=ut().state,n=$e();return B(Fw,{children:[N($w,{src:So,alt:"skini-Logo"}),N(Bw,{}),B(Uw,{children:[N(bw,{children:"회원가입 완료"}),B(Hw,{children:[t," 님 환영합니다!"]})]}),N(Ww,{onClick:()=>{n("/")},children:"시작하기"})]})}const Qw="/assets/Camera-DMDRZE17.png",Kw=()=>{const e=ut(),{diagnosisType:t}=e.state,n=$e(),[r,o]=k.useState(null),[i,l]=k.useState(null),s=k.useRef(null),a=t==="CANCER"?"피부암 - 피부진단":t==="DISEASE"?"피부질환 - 피부진단":"알 수 없음",u=h=>{const x=h.target.files?h.target.files[0]:null;if(x){o(x);const y=URL.createObjectURL(x);l(y)}},c=()=>{s.current&&s.current.click()},f=async()=>{if(!r){alert("파일을 선택해 주세요.");return}const h=new FormData;h.append("file",r);const x=at();if(!x)throw new Error("API 클라이언트를 생성할 수 없습니다.");try{const y={"Content-Type":"multipart/form-data"},g=sessionStorage.getItem("accessToken");g&&(y.Authorization=`Bearer ${g}`);const w=await x.post(`api/diagnosis?type=${t}`,h,{headers:y});console.log("파일 업로드 성공:",w.data),alert("파일 업로드가 완료되었습니다."),n(`/diagnosis/result/${w.data.id}`,{state:w.data.id})}catch(y){console.error("파일 업로드 실패:",y),alert("파일 업로드에 실패했습니다. 다시 진행해 주세요.")}};return v.jsxs(Gw,{children:[v.jsxs(Yw,{children:[v.jsx(ls,{onClick:()=>{n(-1)},children:"<"}),v.jsx(ls,{children:a}),v.jsx(ls,{children:" "})]}),v.jsx(qw,{children:"카메라 아이콘을 눌러 이미지를 선택하세요"}),v.jsx(Xw,{src:i||Qw,alt:"Camera",onClick:c}),v.jsx("input",{type:"file",ref:s,style:{display:"none"},onChange:u}),v.jsx(Jw,{onClick:f,children:"진단하기"})]})},Gw=S.div`
+`;function Qw(){const t=ut().state,n=$e();return B($w,{children:[N(Bw,{src:So,alt:"skini-Logo"}),N(Uw,{src:Fw}),B(bw,{children:[N(Hw,{children:"회원가입 완료"}),B(Ww,{children:[t," 님 환영합니다!"]})]}),N(Vw,{onClick:()=>{n("/")},children:"시작하기"})]})}const Kw="/assets/Camera-DMDRZE17.png",Gw=()=>{const e=ut(),{diagnosisType:t}=e.state,n=$e(),[r,o]=k.useState(null),[i,l]=k.useState(null),s=k.useRef(null),a=t==="CANCER"?"피부암 - 피부진단":t==="DISEASE"?"피부질환 - 피부진단":"알 수 없음",u=h=>{const x=h.target.files?h.target.files[0]:null;if(x){o(x);const y=URL.createObjectURL(x);l(y)}},c=()=>{s.current&&s.current.click()},f=async()=>{if(!r){alert("파일을 선택해 주세요.");return}const h=new FormData;h.append("file",r);const x=at();if(!x)throw new Error("API 클라이언트를 생성할 수 없습니다.");try{const y={"Content-Type":"multipart/form-data"},g=sessionStorage.getItem("accessToken");g&&(y.Authorization=`Bearer ${g}`);const w=await x.post(`api/diagnosis?type=${t}`,h,{headers:y});console.log("파일 업로드 성공:",w.data),alert("파일 업로드가 완료되었습니다."),n(`/diagnosis/result/${w.data.id}`,{state:w.data.id})}catch(y){console.error("파일 업로드 실패:",y),alert("파일 업로드에 실패했습니다. 다시 진행해 주세요.")}};return v.jsxs(Yw,{children:[v.jsxs(qw,{children:[v.jsx(ls,{onClick:()=>{n(-1)},children:"<"}),v.jsx(ls,{children:a}),v.jsx(ls,{children:" "})]}),v.jsx(Xw,{children:"카메라 아이콘을 눌러 이미지를 선택하세요"}),v.jsx(Jw,{src:i||Kw,alt:"Camera",onClick:c}),v.jsx("input",{type:"file",ref:s,style:{display:"none"},onChange:u}),v.jsx(Zw,{onClick:f,children:"진단하기"})]})},Yw=S.div`
     display: flex;
     align-items: center;
     flex-direction: column;
     height: 100vh; /* 화면 전체 높이 */
-`,Yw=S.div`
+`,qw=S.div`
     margin-top: 85px;
     width: 100%;
     display: flex;
@@ -323,15 +318,15 @@ s`,wf=S.div`
 `,ls=S.span`
     font-weight: bold;
     font-size: 38px;
-`,qw=S.span`
+`,Xw=S.span`
     font-size: 24px;
     margin-top: 20px;
-`,Xw=S.img`
+`,Jw=S.img`
     width: 277px;
     height: 277px;
     margin-top: 187px;
     cursor: pointer; /* 클릭 가능하게 스타일링 */
-`,Jw=S.div`
+`,Zw=S.div`
     position: fixed; /* 화면에 고정 */
     bottom: 0; /* 화면의 가장 아래로 이동 */
     left: 0; /* 왼쪽 끝에 맞춤 */
@@ -346,12 +341,12 @@ s`,wf=S.div`
     color: white;
     font-size: 50px;
     font-weight: 600;
-`;function Zw(){const e=at(),n=ut().state,r=$e(),[o,i]=k.useState(null),[l,s]=k.useState(null),a=async()=>{console.log(n);try{if(!e)console.error("API 클라이언트가 생성되지 않았습니다.");else{const h={},x=sessionStorage.getItem("accessToken");x&&(h.Authorization=`Bearer ${x}`);const g=(await e.get(`/api/diagnosis/${n}`,{headers:h})).data;g.confidenceScore&&(g.confidenceScore=g.confidenceScore.split(".")[0]),i(g)}}catch(h){console.error("Error fetching diagnosis data:",h)}},u=async h=>{console.log(h.result);try{if(!e)console.error("API 클라이언트가 생성되지 않았습니다.");else{const x=await e.get(`/api/diagnosis_info?name=${h.result}`);s(x.data)}}catch(x){console.error("Error fetching additional data:",x)}},c=()=>{r("/nearhospital")},f=()=>{r("/mypage/diagnostic")};return k.useEffect(()=>{a()},[]),k.useEffect(()=>{o&&u(o)},[o]),o?v.jsxs(ek,{children:[v.jsxs(tk,{children:[v.jsx(ss,{onClick:()=>r(-1),children:"<"}),v.jsx(ss,{children:"상세 진단"}),v.jsx(ss,{children:"  "})]}),o.isPositive===!1?v.jsxs(kf,{children:[v.jsx(Sf,{}),v.jsxs(as,{children:[v.jsx(Wo,{children:"진단 결과"}),v.jsx(us,{children:`진단 결과 ${o.diagnosisType==="CANCER"?"피부암":"피부질환"}이 아닙니다.`})]}),v.jsxs(Ef,{children:[v.jsxs(Vo,{onClick:c,children:["가까운",v.jsx("br",{})," 병원"]}),v.jsx(Vo,{onClick:f,children:"진단 기록"})]})]}):v.jsxs(v.Fragment,{children:[v.jsxs(nk,{children:[v.jsxs(rk,{children:[v.jsx(ok,{diagnosisType:o.diagnosisType}),v.jsx(ik,{children:o.diagnosisType==="CANCER"?"피부암":o.diagnosisType==="DISEASE"?"피부 질환":o.diagnosisType})]}),v.jsxs(lk,{children:[v.jsxs(sk,{children:[v.jsx(ak,{children:o.createdAt}),v.jsx(Wo,{children:l?l.korName:"로딩 중..."})]}),v.jsxs(uk,{children:[o.confidenceScore,"%"]})]}),v.jsx(ck,{src:o.imageUrl})]}),v.jsxs(kf,{children:[v.jsx(Sf,{}),v.jsxs(as,{children:[v.jsx(Wo,{children:"진단 상세 설명"}),v.jsx(us,{children:l?l.description:"추가 정보 로딩 중..."})]}),v.jsxs(as,{children:[v.jsx(Wo,{children:"치료법 및 대처법"}),v.jsx(us,{children:l?l.guideline:"추가 정보 로딩 중..."})]})]}),v.jsxs(Ef,{children:[v.jsxs(Vo,{onClick:c,children:["가까운",v.jsx("br",{})," 병원"]}),v.jsx(Vo,{onClick:f,children:"진단 기록"})]})]})]}):v.jsx("div",{children:"로딩 중..."})}const ek=S.div`
+`;function ek(){const e=at(),n=ut().state,r=$e(),[o,i]=k.useState(null),[l,s]=k.useState(null),a=async()=>{console.log(n);try{if(!e)console.error("API 클라이언트가 생성되지 않았습니다.");else{const h={},x=sessionStorage.getItem("accessToken");x&&(h.Authorization=`Bearer ${x}`);const g=(await e.get(`/api/diagnosis/${n}`,{headers:h})).data;g.confidenceScore&&(g.confidenceScore=g.confidenceScore.split(".")[0]),i(g)}}catch(h){console.error("Error fetching diagnosis data:",h)}},u=async h=>{console.log(h.result);try{if(!e)console.error("API 클라이언트가 생성되지 않았습니다.");else{const x=await e.get(`/api/diagnosis_info?name=${h.result}`);s(x.data)}}catch(x){console.error("Error fetching additional data:",x)}},c=()=>{r("/nearhospital")},f=()=>{r("/mypage/diagnostic")};return k.useEffect(()=>{a()},[]),k.useEffect(()=>{o&&u(o)},[o]),o?v.jsxs(tk,{children:[v.jsxs(nk,{children:[v.jsx(ss,{onClick:()=>r(-1),children:"<"}),v.jsx(ss,{children:"상세 진단"}),v.jsx(ss,{children:"  "})]}),o.isPositive===!1?v.jsxs(kf,{children:[v.jsx(Sf,{}),v.jsxs(as,{children:[v.jsx(Wo,{children:"진단 결과"}),v.jsx(us,{children:`진단 결과 ${o.diagnosisType==="CANCER"?"피부암":"피부질환"}이 아닙니다.`})]}),v.jsxs(Ef,{children:[v.jsxs(Vo,{onClick:c,children:["가까운",v.jsx("br",{})," 병원"]}),v.jsx(Vo,{onClick:f,children:"진단 기록"})]})]}):v.jsxs(v.Fragment,{children:[v.jsxs(rk,{children:[v.jsxs(ok,{children:[v.jsx(ik,{diagnosisType:o.diagnosisType}),v.jsx(lk,{children:o.diagnosisType==="CANCER"?"피부암":o.diagnosisType==="DISEASE"?"피부 질환":o.diagnosisType})]}),v.jsxs(sk,{children:[v.jsxs(ak,{children:[v.jsx(uk,{children:o.createdAt}),v.jsx(Wo,{children:l?l.korName:"로딩 중..."})]}),v.jsxs(ck,{children:[o.confidenceScore,"%"]})]}),v.jsx(fk,{src:o.imageUrl})]}),v.jsxs(kf,{children:[v.jsx(Sf,{}),v.jsxs(as,{children:[v.jsx(Wo,{children:"진단 상세 설명"}),v.jsx(us,{children:l?l.description:"추가 정보 로딩 중..."})]}),v.jsxs(as,{children:[v.jsx(Wo,{children:"치료법 및 대처법"}),v.jsx(us,{children:l?l.guideline:"추가 정보 로딩 중..."})]})]}),v.jsxs(Ef,{children:[v.jsxs(Vo,{onClick:c,children:["가까운",v.jsx("br",{})," 병원"]}),v.jsx(Vo,{onClick:f,children:"진단 기록"})]})]})]}):v.jsx("div",{children:"로딩 중..."})}const tk=S.div`
     display: flex;
     align-items: center;
     flex-direction: column;
     height: 100vh; /* 화면 전체 높이 */
-`,tk=S.div`
+`,nk=S.div`
     margin: 85px 0 39px 0;
     width: 100%;
     display: flex;
@@ -360,48 +355,48 @@ s`,wf=S.div`
 `,ss=S.span`
     font-weight: bold;
     font-size: 38px;
-`,nk=S.div`
+`,rk=S.div`
     width: 334px;
     height: 65px;
     margin: 0px 0px 20px 34px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-`,rk=S.div`
+`,ok=S.div`
     width: 48px;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-`,ok=S.img`
+`,ik=S.img`
     width: 48px;
     height: 38px;
     border-radius: 10px;
     background-color: ${e=>e.diagnosisType==="CANCER"?"red":e.diagnosisType==="DISEASE"?"green":"gray"};
     border-radius: 10px;
-`,ik=S.span`
+`,lk=S.span`
     font-weight: 400;
     font-size: 18px;
-`,lk=S.div`
+`,sk=S.div`
     width: 144px;
     display: flex;
     justify-content: space-between;
-`,sk=S.div`
+`,ak=S.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-`,ak=S.span`
+`,uk=S.span`
     font-weight: bold;
     font-size: 20px;
 `,Wo=S.span`
     font-weight: bold;  
     font-size: 30px;
-`,uk=S.span`
+`,ck=S.span`
     font-weight: 400;
     font-size: 20px;
     display: flex;
     align-items: end;
-`,ck=S.img`
+`,fk=S.img`
     width: 74px;
     border-radius: 10px;
     // background-color: orange;
@@ -458,16 +453,16 @@ s`,wf=S.div`
     &:hover {
         background-color: #0536c4; /* 호버 효과 */
     }
-`,Hn=typeof window<"u"&&typeof document<"u"?k.useLayoutEffect:k.useEffect,ce=(e,t,n)=>{Hn(()=>{if(!e||!n)return;const r=function(){for(var o=arguments.length,i=new Array(o),l=0;l<o;l++)i[l]=arguments[l];return i===void 0?n(e):n(e,...i)};return kakao.maps.event.addListener(e,t,r),()=>{kakao.maps.event.removeListener(e,t,r)}},[e,t,n])},cm="__react-kakao-maps-sdk__";let Rr=function(e){return e[e.INITIALIZED=0]="INITIALIZED",e[e.LOADING=1]="LOADING",e[e.SUCCESS=2]="SUCCESS",e[e.FAILURE=3]="FAILURE",e}({});const fk=`${cm}_Loader`,G=class G{constructor(t){jn(this,"callbacks",[]);jn(this,"done",!1);jn(this,"loading",!1);jn(this,"errors",[]);let{appkey:n,id:r=fk,libraries:o=[],nonce:i,retries:l=3,url:s="//dapi.kakao.com/v2/maps/sdk.js"}=t;if(this.id=r,this.appkey=n,this.libraries=o,this.nonce=i,this.retries=l,this.url=s,G.instance&&!G.equalOptions(this.options,G.instance.options)&&!G.equalOptions(this.options,G.instance.options))switch(G.instance.status){case Rr.FAILURE:throw new Error(`Loader must not be called again with different options. 
+`,Hn=typeof window<"u"&&typeof document<"u"?k.useLayoutEffect:k.useEffect,ce=(e,t,n)=>{Hn(()=>{if(!e||!n)return;const r=function(){for(var o=arguments.length,i=new Array(o),l=0;l<o;l++)i[l]=arguments[l];return i===void 0?n(e):n(e,...i)};return kakao.maps.event.addListener(e,t,r),()=>{kakao.maps.event.removeListener(e,t,r)}},[e,t,n])},cm="__react-kakao-maps-sdk__";let Rr=function(e){return e[e.INITIALIZED=0]="INITIALIZED",e[e.LOADING=1]="LOADING",e[e.SUCCESS=2]="SUCCESS",e[e.FAILURE=3]="FAILURE",e}({});const dk=`${cm}_Loader`,G=class G{constructor(t){jn(this,"callbacks",[]);jn(this,"done",!1);jn(this,"loading",!1);jn(this,"errors",[]);let{appkey:n,id:r=dk,libraries:o=[],nonce:i,retries:l=3,url:s="//dapi.kakao.com/v2/maps/sdk.js"}=t;if(this.id=r,this.appkey=n,this.libraries=o,this.nonce=i,this.retries=l,this.url=s,G.instance&&!G.equalOptions(this.options,G.instance.options)&&!G.equalOptions(this.options,G.instance.options))switch(G.instance.status){case Rr.FAILURE:throw new Error(`Loader must not be called again with different options. 
 ${JSON.stringify(this.options,null,2)}
 !==
-${JSON.stringify(G.instance.options,null,2)}`);default:G.instance.reset(),G.instance=this;break}return G.instance||(G.instance=this),G.instance}get options(){return{appkey:this.appkey,id:this.id,libraries:this.libraries,nonce:this.nonce,retries:this.retries,url:this.url}}static addLoadEventLisnter(t){return window.kakao&&window.kakao.maps&&window.kakao.maps.load(t),G.loadEventCallback.add(t),t}static removeLoadEventLisnter(t){return G.loadEventCallback.delete(t)}load(){return new Promise((t,n)=>{this.loadCallback(r=>{r?n(r):t(window.kakao)})})}get status(){return this.onEvent?Rr.FAILURE:this.done?Rr.SUCCESS:this.loading?Rr.LOADING:Rr.INITIALIZED}get failed(){return this.done&&!this.loading&&this.errors.length>=this.retries+1}loadCallback(t){this.callbacks.push(t),this.execute()}resetIfRetryingFailed(){this.failed&&this.reset()}reset(){this.deleteScript(),this.done=!0,this.loading=!1,this.errors=[],this.onEvent=void 0}execute(){if(this.resetIfRetryingFailed(),this.done)this.callback();else{if(window.kakao&&window.kakao.maps){console.warn("Kakao Maps이 이미 외부 요소에 의해 로딩되어 있습니다.설정한 옵션과 일치 하지 않을 수 있으며, 이에 따른 예상치 동작이 발생할 수 있습니다."),window.kakao.maps.load(this.callback);return}this.loading||(this.loading=!0,this.setScript())}}setScript(){document.getElementById(this.id)&&this.callback();const t=this.createUrl(),n=document.createElement("script");n.id=this.id,n.type="text/javascript",n.src=t,n.onerror=this.loadErrorCallback.bind(this),n.onload=this.callback.bind(this),n.defer=!0,n.async=!0,this.nonce&&(n.nonce=this.nonce),document.head.appendChild(n)}loadErrorCallback(t){if(this.errors.push(t),this.errors.length<=this.retries){const n=this.errors.length*2**this.errors.length;console.log(`Failed to load Kakao Maps script, retrying in ${n} ms.`),setTimeout(()=>{this.deleteScript(),this.setScript()},n)}else this.done=!0,this.loading=!1,this.onEvent=this.errors[this.errors.length-1],this.callbacks.forEach(n=>{n(this.onEvent)}),this.callbacks=[],G.loadEventCallback.forEach(n=>{n(this.onEvent)})}createUrl(){let t=this.url;return t+=`?appkey=${this.appkey}`,this.libraries.length&&(t+=`&libraries=${this.libraries.join(",")}`),t+="&autoload=false",t}deleteScript(){const t=document.getElementById(this.id);t&&t.remove()}callback(){kakao.maps.load(()=>{G.instance.done=!0,G.instance.loading=!1,G.instance.callbacks.forEach(t=>{t(G.instance.onEvent)}),G.instance.callbacks=[],G.loadEventCallback.forEach(t=>{t(G.instance.onEvent)})})}static equalOptions(t,n){if(t.appkey!==n.appkey||t.id!==n.id||t.libraries.length!==n.libraries.length)return!1;for(let r=0;r<t.libraries.length;++r)if(t.libraries[r]!==n.libraries[r])return!1;return!(t.nonce!==n.nonce||t.retries!==n.retries||t.url!==n.url)}};jn(G,"loadEventCallback",new Set);let bi=G;const J=function(e,t){for(var n=arguments.length,r=new Array(n>2?n-2:0),o=2;o<n;o++)r[o-2]=arguments[o];Hn(()=>{!e||r.every(i=>typeof i>"u")||e[t].call(e,...r)},[e,t,...r])},fm=rn.createContext(void 0),dm=rn.forwardRef(function(t,n){let{id:r,as:o,children:i,center:l,isPanto:s=!1,padding:a=32,disableDoubleClick:u,disableDoubleClickZoom:c,draggable:f,zoomable:h,keyboardShortcuts:x,level:y,maxLevel:g,minLevel:w,mapTypeId:p,projectionId:d,scrollwheel:m,tileAnimation:C,onBoundsChanged:R,onCenterChanged:A,onClick:T,onDoubleClick:j,onDrag:z,onDragEnd:O,onDragStart:ue,onIdle:ft,onMaptypeidChanged:dt,onMouseMove:un,onRightClick:Pn,onTileLoaded:Mt,onZoomChanged:Ft,onZoomStart:L,onCreate:I,...F}=t;const X=o||"div",[re,An]=k.useState(!1),[D,pr]=k.useState(),pt=k.useRef(null);return Hn(()=>{const we=bi.addLoadEventLisnter(ht=>An(!ht));return()=>{bi.removeLoadEventLisnter(we)}},[]),Hn(()=>{if(!re)return;const we=pt.current;if(!we)return;const ht="lat"in l?new kakao.maps.LatLng(l.lat,l.lng):new kakao.maps.Coords(l.x,l.y),gm=new kakao.maps.Map(we,{center:ht,disableDoubleClick:u,disableDoubleClickZoom:c,draggable:f,keyboardShortcuts:x,level:y,mapTypeId:typeof p=="string"?kakao.maps.MapTypeId[p]:p,projectionId:d,scrollwheel:m,tileAnimation:C});return pr(gm),()=>{we.innerHTML=""}},[re,u,c,C]),k.useImperativeHandle(n,()=>D,[D]),Hn(()=>{!D||!I||I(D)},[D,I]),Hn(()=>{if(!D)return;let we=D.getCenter();we instanceof kakao.maps.Coords&&(we=we.toLatLng());const ht="lat"in l?new kakao.maps.LatLng(l.lat,l.lng):new kakao.maps.Coords(l.x,l.y);ht instanceof kakao.maps.LatLng&&ht.equals(we)||ht instanceof kakao.maps.Coords&&ht.toLatLng().equals(we)||(s?D.panTo(ht,a):D.setCenter(ht))},[D,l.lat,l.lng,l.x,l.y]),J(D,"setDraggable",f),J(D,"setZoomable",h),J(D,"setKeyboardShortcuts",x),J(D,"setLevel",y),J(D,"setMapTypeId",re?typeof p=="string"?kakao.maps.MapTypeId[p]:p:void 0),J(D,"setProjectionId",d),J(D,"setMinLevel",g),J(D,"setMaxLevel",w),ce(D,"bounds_changed",R),ce(D,"center_changed",A),ce(D,"click",T),ce(D,"dblclick",j),ce(D,"drag",z),ce(D,"dragstart",ue),ce(D,"dragend",O),ce(D,"idle",ft),ce(D,"maptypeid_changed",dt),ce(D,"mousemove",un),ce(D,"rightclick",Pn),ce(D,"tilesloaded",Mt),ce(D,"zoom_changed",Ft),ce(D,"zoom_start",L),v.jsxs(v.Fragment,{children:[v.jsx(X,{id:r||`${cm}_Map`,...F,ref:pt}),D&&v.jsx(fm.Provider,{value:D,children:i})]})}),dk=e=>{const t=k.useContext(fm);if(!t)throw new Error(`${e+" Component"} must exist inside Map Component!`);return t},pk=rn.forwardRef(function(t,n){let{map:r,position:o,marker:i,children:l,altitude:s,disableAutoPan:a,range:u,removable:c,zIndex:f,onCreate:h}=t;const x=k.useMemo(()=>{const g=document.createElement("div");return g.style.display="none",new kakao.maps.InfoWindow({altitude:s,disableAutoPan:a,range:u,removable:c,zIndex:f,content:g,position:o})},[a,c]),y=k.useMemo(()=>x.getContent(),[x]);return k.useImperativeHandle(n,()=>x,[x]),k.useLayoutEffect(()=>(x.open(r,i),()=>{x.close()}),[r,i]),k.useLayoutEffect(()=>{h&&h(x)},[x,h]),J(x,"setPosition",o),J(x,"setAltitude",s),J(x,"setRange",u),J(x,"setZIndex",f),Vy.createPortal(l,y.parentElement??y)}),hk=rn.createContext(void 0),mk=rn.forwardRef(function(t,n){let{map:r,position:o,children:i,altitude:l,clickable:s,draggable:a,image:u,infoWindowOptions:c,onCreate:f,onClick:h,onDragEnd:x,onDragStart:y,onMouseOut:g,onMouseOver:w,opacity:p,range:d,title:m,zIndex:C}=t;const R=k.useContext(hk),A=k.useMemo(()=>{var j,z,O,ue,ft,dt,un,Pn,Mt,Ft,L,I;return u&&new kakao.maps.MarkerImage(u.src,new kakao.maps.Size(u.size.width,u.size.height),{alt:(j=u.options)==null?void 0:j.alt,coords:(z=u.options)==null?void 0:z.coords,offset:((O=u.options)==null?void 0:O.offset)&&new kakao.maps.Point((ue=u.options)==null?void 0:ue.offset.x,(ft=u.options)==null?void 0:ft.offset.y),shape:(dt=u.options)==null?void 0:dt.shape,spriteOrigin:((un=u.options)==null?void 0:un.spriteOrigin)&&new kakao.maps.Point((Pn=u.options)==null?void 0:Pn.spriteOrigin.x,(Mt=u.options)==null?void 0:Mt.spriteOrigin.y),spriteSize:((Ft=u.options)==null?void 0:Ft.spriteSize)&&new kakao.maps.Size((L=u.options)==null?void 0:L.spriteSize.width,(I=u.options)==null?void 0:I.spriteSize.height)})},[JSON.stringify(u)]),T=k.useMemo(()=>new kakao.maps.Marker({altitude:l,clickable:s,draggable:a,image:A,opacity:p,range:d,title:m,zIndex:C,position:o}),[]);return k.useImperativeHandle(n,()=>T,[T]),k.useLayoutEffect(()=>R?(R.addMarker(T,!0),()=>R.removeMarker(T,!0)):(T.setMap(r),()=>T.setMap(null)),[r,R,T]),k.useLayoutEffect(()=>{f&&f(T)},[T,f]),J(T,"setPosition",o),J(T,"setImage",A),J(T,"setAltitude",l),J(T,"setClickable",s),J(T,"setDraggable",a),J(T,"setOpacity",p),J(T,"setRange",d),J(T,"setRange",d),J(T,"setTitle",m),J(T,"setTitle",m),J(T,"setZIndex",C),ce(T,"click",h),ce(T,"dragstart",y),ce(T,"dragend",x),ce(T,"mouseout",g),ce(T,"mouseover",w),i?v.jsx(pk,{position:o,map:r,marker:T,altitude:c==null?void 0:c.altitude,disableAutoPan:c==null?void 0:c.disableAutoPan,range:c==null?void 0:c.range,removable:c==null?void 0:c.removable,zIndex:c==null?void 0:c.zIndex,children:i}):null}),pm=rn.forwardRef(function(t,n){let{position:r,...o}=t;const i=dk("MapMarker"),l=k.useMemo(()=>"lat"in r?new kakao.maps.LatLng(r.lat,r.lng):new kakao.maps.Coords(r.x,r.y).toLatLng(),[r.lat,r.lng,r.x,r.y]);return v.jsx(mk,{map:i,position:l,...o,ref:n})}),gk=({onMarkersChange:e,onMarkerSelect:t})=>{const[n,r]=k.useState({lat:37.55465,lng:126.9706}),[o,i]=k.useState(null),[l,s]=k.useState([]),[a,u]=k.useState(null);k.useEffect(()=>{navigator.geolocation?navigator.geolocation.getCurrentPosition(f=>{const{latitude:h,longitude:x}=f.coords;r({lat:h,lng:x})},f=>{console.error("현재 위치를 불러올 수 없습니다:",f)}):alert("Geolocation을 지원하지 않는 브라우저입니다.")},[]),k.useEffect(()=>{if(!o)return;new kakao.maps.services.Places().keywordSearch("피부과",(h,x)=>{if(x===kakao.maps.services.Status.OK){const y=new kakao.maps.LatLngBounds,g=h.map(w=>(y.extend(new kakao.maps.LatLng(parseFloat(w.y),parseFloat(w.x))),{position:{lat:parseFloat(w.y),lng:parseFloat(w.x)},content:w.place_name,address:w.address_name,phone:w.phone||"전화번호 없음"}));s(g),e(g),o.setBounds(y)}},{location:new kakao.maps.LatLng(n.lat,n.lng),radius:3e3})},[o,n]);const c=f=>{u(f),t&&t(f)};return v.jsx(v.Fragment,{children:v.jsx(dm,{center:n,style:{width:"100%",height:"760px"},level:3,onCreate:i,children:l.map((f,h)=>v.jsx(pm,{position:f.position,onClick:()=>c(f),children:a&&a.content===f.content&&v.jsx("div",{style:{color:"#000"},children:f.content})},h))})})};function yk(){const e=$e(),[t,n]=k.useState([]),[r,o]=k.useState(null),i=sessionStorage.getItem("accessToken"),l=at(),s=c=>{n(c)},a=c=>{o(c)},u=async()=>{if(r){if(!i){alert("로그인이 필요합니다.");return}try{const c={hospitalName:r.content,address:r.address,latitude:r.position.lat,longitude:r.position.lng,phoneNumber:r.phone};if(l)(await l.post("/api/favorites/hospital",c,{headers:{Authorization:`Bearer ${i}`}})).status===200?alert("즐겨찾기에 추가되었습니다!"):alert("추가 중 문제가 발생했습니다.");else throw new Error("API 클라이언트를 생성할 수 없습니다.")}catch(c){console.error("즐겨찾기 추가 오류:",c),alert("추가 실패: 서버와 통신하는 중 오류가 발생했습니다.")}}};return v.jsxs(vk,{children:[v.jsxs(xk,{children:[v.jsx(cs,{onClick:()=>e(-1),children:"<"}),v.jsx(cs,{children:"가까운 병원 목록"}),v.jsx(cs,{children:" "})]}),v.jsx(gk,{onMarkersChange:s,onMarkerSelect:a})," ",v.jsx(wk,{children:r?v.jsxs(Cf,{children:[v.jsxs(Tf,{children:[v.jsx(Rf,{isSpecialist:r.content.includes("피부과")}),v.jsx(Pf,{children:r.content.includes("피부과")?"전문의":"의원"})]}),v.jsx(Af,{children:v.jsx(jf,{children:r.content})}),v.jsxs("div",{children:[v.jsxs("p",{children:["주소: ",r.address]}),v.jsxs("p",{children:["전화번호: ",r.phone]})]}),v.jsx(kk,{onClick:u,children:"즐겨찾기로 추가"})]}):t.map((c,f)=>{const h=c.content.includes("피부과");return v.jsxs(Cf,{children:[v.jsxs(Tf,{children:[v.jsx(Rf,{isSpecialist:h}),v.jsx(Pf,{children:h?"전문의":"의원"})]}),v.jsx(Af,{children:v.jsx(jf,{children:c.content})}),v.jsxs("div",{children:[v.jsxs("p",{children:["주소: ",c.address]}),v.jsxs("p",{children:["전화번호: ",c.phone]})]})]},f)})})]})}const vk=S.div`
+${JSON.stringify(G.instance.options,null,2)}`);default:G.instance.reset(),G.instance=this;break}return G.instance||(G.instance=this),G.instance}get options(){return{appkey:this.appkey,id:this.id,libraries:this.libraries,nonce:this.nonce,retries:this.retries,url:this.url}}static addLoadEventLisnter(t){return window.kakao&&window.kakao.maps&&window.kakao.maps.load(t),G.loadEventCallback.add(t),t}static removeLoadEventLisnter(t){return G.loadEventCallback.delete(t)}load(){return new Promise((t,n)=>{this.loadCallback(r=>{r?n(r):t(window.kakao)})})}get status(){return this.onEvent?Rr.FAILURE:this.done?Rr.SUCCESS:this.loading?Rr.LOADING:Rr.INITIALIZED}get failed(){return this.done&&!this.loading&&this.errors.length>=this.retries+1}loadCallback(t){this.callbacks.push(t),this.execute()}resetIfRetryingFailed(){this.failed&&this.reset()}reset(){this.deleteScript(),this.done=!0,this.loading=!1,this.errors=[],this.onEvent=void 0}execute(){if(this.resetIfRetryingFailed(),this.done)this.callback();else{if(window.kakao&&window.kakao.maps){console.warn("Kakao Maps이 이미 외부 요소에 의해 로딩되어 있습니다.설정한 옵션과 일치 하지 않을 수 있으며, 이에 따른 예상치 동작이 발생할 수 있습니다."),window.kakao.maps.load(this.callback);return}this.loading||(this.loading=!0,this.setScript())}}setScript(){document.getElementById(this.id)&&this.callback();const t=this.createUrl(),n=document.createElement("script");n.id=this.id,n.type="text/javascript",n.src=t,n.onerror=this.loadErrorCallback.bind(this),n.onload=this.callback.bind(this),n.defer=!0,n.async=!0,this.nonce&&(n.nonce=this.nonce),document.head.appendChild(n)}loadErrorCallback(t){if(this.errors.push(t),this.errors.length<=this.retries){const n=this.errors.length*2**this.errors.length;console.log(`Failed to load Kakao Maps script, retrying in ${n} ms.`),setTimeout(()=>{this.deleteScript(),this.setScript()},n)}else this.done=!0,this.loading=!1,this.onEvent=this.errors[this.errors.length-1],this.callbacks.forEach(n=>{n(this.onEvent)}),this.callbacks=[],G.loadEventCallback.forEach(n=>{n(this.onEvent)})}createUrl(){let t=this.url;return t+=`?appkey=${this.appkey}`,this.libraries.length&&(t+=`&libraries=${this.libraries.join(",")}`),t+="&autoload=false",t}deleteScript(){const t=document.getElementById(this.id);t&&t.remove()}callback(){kakao.maps.load(()=>{G.instance.done=!0,G.instance.loading=!1,G.instance.callbacks.forEach(t=>{t(G.instance.onEvent)}),G.instance.callbacks=[],G.loadEventCallback.forEach(t=>{t(G.instance.onEvent)})})}static equalOptions(t,n){if(t.appkey!==n.appkey||t.id!==n.id||t.libraries.length!==n.libraries.length)return!1;for(let r=0;r<t.libraries.length;++r)if(t.libraries[r]!==n.libraries[r])return!1;return!(t.nonce!==n.nonce||t.retries!==n.retries||t.url!==n.url)}};jn(G,"loadEventCallback",new Set);let bi=G;const J=function(e,t){for(var n=arguments.length,r=new Array(n>2?n-2:0),o=2;o<n;o++)r[o-2]=arguments[o];Hn(()=>{!e||r.every(i=>typeof i>"u")||e[t].call(e,...r)},[e,t,...r])},fm=rn.createContext(void 0),dm=rn.forwardRef(function(t,n){let{id:r,as:o,children:i,center:l,isPanto:s=!1,padding:a=32,disableDoubleClick:u,disableDoubleClickZoom:c,draggable:f,zoomable:h,keyboardShortcuts:x,level:y,maxLevel:g,minLevel:w,mapTypeId:p,projectionId:d,scrollwheel:m,tileAnimation:C,onBoundsChanged:R,onCenterChanged:A,onClick:T,onDoubleClick:j,onDrag:z,onDragEnd:O,onDragStart:ue,onIdle:ft,onMaptypeidChanged:dt,onMouseMove:un,onRightClick:Pn,onTileLoaded:Mt,onZoomChanged:Ft,onZoomStart:L,onCreate:I,...F}=t;const X=o||"div",[re,An]=k.useState(!1),[D,pr]=k.useState(),pt=k.useRef(null);return Hn(()=>{const we=bi.addLoadEventLisnter(ht=>An(!ht));return()=>{bi.removeLoadEventLisnter(we)}},[]),Hn(()=>{if(!re)return;const we=pt.current;if(!we)return;const ht="lat"in l?new kakao.maps.LatLng(l.lat,l.lng):new kakao.maps.Coords(l.x,l.y),gm=new kakao.maps.Map(we,{center:ht,disableDoubleClick:u,disableDoubleClickZoom:c,draggable:f,keyboardShortcuts:x,level:y,mapTypeId:typeof p=="string"?kakao.maps.MapTypeId[p]:p,projectionId:d,scrollwheel:m,tileAnimation:C});return pr(gm),()=>{we.innerHTML=""}},[re,u,c,C]),k.useImperativeHandle(n,()=>D,[D]),Hn(()=>{!D||!I||I(D)},[D,I]),Hn(()=>{if(!D)return;let we=D.getCenter();we instanceof kakao.maps.Coords&&(we=we.toLatLng());const ht="lat"in l?new kakao.maps.LatLng(l.lat,l.lng):new kakao.maps.Coords(l.x,l.y);ht instanceof kakao.maps.LatLng&&ht.equals(we)||ht instanceof kakao.maps.Coords&&ht.toLatLng().equals(we)||(s?D.panTo(ht,a):D.setCenter(ht))},[D,l.lat,l.lng,l.x,l.y]),J(D,"setDraggable",f),J(D,"setZoomable",h),J(D,"setKeyboardShortcuts",x),J(D,"setLevel",y),J(D,"setMapTypeId",re?typeof p=="string"?kakao.maps.MapTypeId[p]:p:void 0),J(D,"setProjectionId",d),J(D,"setMinLevel",g),J(D,"setMaxLevel",w),ce(D,"bounds_changed",R),ce(D,"center_changed",A),ce(D,"click",T),ce(D,"dblclick",j),ce(D,"drag",z),ce(D,"dragstart",ue),ce(D,"dragend",O),ce(D,"idle",ft),ce(D,"maptypeid_changed",dt),ce(D,"mousemove",un),ce(D,"rightclick",Pn),ce(D,"tilesloaded",Mt),ce(D,"zoom_changed",Ft),ce(D,"zoom_start",L),v.jsxs(v.Fragment,{children:[v.jsx(X,{id:r||`${cm}_Map`,...F,ref:pt}),D&&v.jsx(fm.Provider,{value:D,children:i})]})}),pk=e=>{const t=k.useContext(fm);if(!t)throw new Error(`${e+" Component"} must exist inside Map Component!`);return t},hk=rn.forwardRef(function(t,n){let{map:r,position:o,marker:i,children:l,altitude:s,disableAutoPan:a,range:u,removable:c,zIndex:f,onCreate:h}=t;const x=k.useMemo(()=>{const g=document.createElement("div");return g.style.display="none",new kakao.maps.InfoWindow({altitude:s,disableAutoPan:a,range:u,removable:c,zIndex:f,content:g,position:o})},[a,c]),y=k.useMemo(()=>x.getContent(),[x]);return k.useImperativeHandle(n,()=>x,[x]),k.useLayoutEffect(()=>(x.open(r,i),()=>{x.close()}),[r,i]),k.useLayoutEffect(()=>{h&&h(x)},[x,h]),J(x,"setPosition",o),J(x,"setAltitude",s),J(x,"setRange",u),J(x,"setZIndex",f),Vy.createPortal(l,y.parentElement??y)}),mk=rn.createContext(void 0),gk=rn.forwardRef(function(t,n){let{map:r,position:o,children:i,altitude:l,clickable:s,draggable:a,image:u,infoWindowOptions:c,onCreate:f,onClick:h,onDragEnd:x,onDragStart:y,onMouseOut:g,onMouseOver:w,opacity:p,range:d,title:m,zIndex:C}=t;const R=k.useContext(mk),A=k.useMemo(()=>{var j,z,O,ue,ft,dt,un,Pn,Mt,Ft,L,I;return u&&new kakao.maps.MarkerImage(u.src,new kakao.maps.Size(u.size.width,u.size.height),{alt:(j=u.options)==null?void 0:j.alt,coords:(z=u.options)==null?void 0:z.coords,offset:((O=u.options)==null?void 0:O.offset)&&new kakao.maps.Point((ue=u.options)==null?void 0:ue.offset.x,(ft=u.options)==null?void 0:ft.offset.y),shape:(dt=u.options)==null?void 0:dt.shape,spriteOrigin:((un=u.options)==null?void 0:un.spriteOrigin)&&new kakao.maps.Point((Pn=u.options)==null?void 0:Pn.spriteOrigin.x,(Mt=u.options)==null?void 0:Mt.spriteOrigin.y),spriteSize:((Ft=u.options)==null?void 0:Ft.spriteSize)&&new kakao.maps.Size((L=u.options)==null?void 0:L.spriteSize.width,(I=u.options)==null?void 0:I.spriteSize.height)})},[JSON.stringify(u)]),T=k.useMemo(()=>new kakao.maps.Marker({altitude:l,clickable:s,draggable:a,image:A,opacity:p,range:d,title:m,zIndex:C,position:o}),[]);return k.useImperativeHandle(n,()=>T,[T]),k.useLayoutEffect(()=>R?(R.addMarker(T,!0),()=>R.removeMarker(T,!0)):(T.setMap(r),()=>T.setMap(null)),[r,R,T]),k.useLayoutEffect(()=>{f&&f(T)},[T,f]),J(T,"setPosition",o),J(T,"setImage",A),J(T,"setAltitude",l),J(T,"setClickable",s),J(T,"setDraggable",a),J(T,"setOpacity",p),J(T,"setRange",d),J(T,"setRange",d),J(T,"setTitle",m),J(T,"setTitle",m),J(T,"setZIndex",C),ce(T,"click",h),ce(T,"dragstart",y),ce(T,"dragend",x),ce(T,"mouseout",g),ce(T,"mouseover",w),i?v.jsx(hk,{position:o,map:r,marker:T,altitude:c==null?void 0:c.altitude,disableAutoPan:c==null?void 0:c.disableAutoPan,range:c==null?void 0:c.range,removable:c==null?void 0:c.removable,zIndex:c==null?void 0:c.zIndex,children:i}):null}),pm=rn.forwardRef(function(t,n){let{position:r,...o}=t;const i=pk("MapMarker"),l=k.useMemo(()=>"lat"in r?new kakao.maps.LatLng(r.lat,r.lng):new kakao.maps.Coords(r.x,r.y).toLatLng(),[r.lat,r.lng,r.x,r.y]);return v.jsx(gk,{map:i,position:l,...o,ref:n})}),yk=({onMarkersChange:e,onMarkerSelect:t})=>{const[n,r]=k.useState({lat:37.55465,lng:126.9706}),[o,i]=k.useState(null),[l,s]=k.useState([]),[a,u]=k.useState(null);k.useEffect(()=>{navigator.geolocation?navigator.geolocation.getCurrentPosition(f=>{const{latitude:h,longitude:x}=f.coords;r({lat:h,lng:x})},f=>{console.error("현재 위치를 불러올 수 없습니다:",f)}):alert("Geolocation을 지원하지 않는 브라우저입니다.")},[]),k.useEffect(()=>{if(!o)return;new kakao.maps.services.Places().keywordSearch("피부과",(h,x)=>{if(x===kakao.maps.services.Status.OK){const y=new kakao.maps.LatLngBounds,g=h.map(w=>(y.extend(new kakao.maps.LatLng(parseFloat(w.y),parseFloat(w.x))),{position:{lat:parseFloat(w.y),lng:parseFloat(w.x)},content:w.place_name,address:w.address_name,phone:w.phone||"전화번호 없음"}));s(g),e(g),o.setBounds(y)}},{location:new kakao.maps.LatLng(n.lat,n.lng),radius:3e3})},[o,n]);const c=f=>{u(f),t&&t(f)};return v.jsx(v.Fragment,{children:v.jsx(dm,{center:n,style:{width:"100%",height:"760px"},level:3,onCreate:i,children:l.map((f,h)=>v.jsx(pm,{position:f.position,onClick:()=>c(f),children:a&&a.content===f.content&&v.jsx("div",{style:{color:"#000"},children:f.content})},h))})})};function vk(){const e=$e(),[t,n]=k.useState([]),[r,o]=k.useState(null),i=sessionStorage.getItem("accessToken"),l=at(),s=c=>{n(c)},a=c=>{o(c)},u=async()=>{if(r){if(!i){alert("로그인이 필요합니다.");return}try{const c={hospitalName:r.content,address:r.address,latitude:r.position.lat,longitude:r.position.lng,phoneNumber:r.phone};if(l)(await l.post("/api/favorites/hospital",c,{headers:{Authorization:`Bearer ${i}`}})).status===200?alert("즐겨찾기에 추가되었습니다!"):alert("추가 중 문제가 발생했습니다.");else throw new Error("API 클라이언트를 생성할 수 없습니다.")}catch(c){console.error("즐겨찾기 추가 오류:",c),alert("추가 실패: 서버와 통신하는 중 오류가 발생했습니다.")}}};return v.jsxs(xk,{children:[v.jsxs(wk,{children:[v.jsx(cs,{onClick:()=>e(-1),children:"<"}),v.jsx(cs,{children:"가까운 병원 목록"}),v.jsx(cs,{children:" "})]}),v.jsx(yk,{onMarkersChange:s,onMarkerSelect:a})," ",v.jsx(kk,{children:r?v.jsxs(Cf,{children:[v.jsxs(Tf,{children:[v.jsx(Rf,{isSpecialist:r.content.includes("피부과")}),v.jsx(Pf,{children:r.content.includes("피부과")?"전문의":"의원"})]}),v.jsx(Af,{children:v.jsx(jf,{children:r.content})}),v.jsxs("div",{children:[v.jsxs("p",{children:["주소: ",r.address]}),v.jsxs("p",{children:["전화번호: ",r.phone]})]}),v.jsx(Sk,{onClick:u,children:"즐겨찾기로 추가"})]}):t.map((c,f)=>{const h=c.content.includes("피부과");return v.jsxs(Cf,{children:[v.jsxs(Tf,{children:[v.jsx(Rf,{isSpecialist:h}),v.jsx(Pf,{children:h?"전문의":"의원"})]}),v.jsx(Af,{children:v.jsx(jf,{children:c.content})}),v.jsxs("div",{children:[v.jsxs("p",{children:["주소: ",c.address]}),v.jsxs("p",{children:["전화번호: ",c.phone]})]})]},f)})})]})}const xk=S.div`
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: space-between;
   height: 100vh;
-`,xk=S.div`
+`,wk=S.div`
   margin: 85px 0 65px 0;
   width: 100%;
   display: flex;
@@ -475,7 +470,7 @@ ${JSON.stringify(G.instance.options,null,2)}`);default:G.instance.reset(),G.inst
 `,cs=S.span`
   font-weight: bold;
   font-size: 38px;
-`,wk=S.div`
+`,kk=S.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -513,7 +508,7 @@ ${JSON.stringify(G.instance.options,null,2)}`);default:G.instance.reset(),G.inst
 `,jf=S.span`
   font-weight: bold;
   font-size: 30px;
-`,kk=S.button`
+`,Sk=S.button`
   margin-top: 10px;
   padding: 10px 20px;
   font-size: 16px;
@@ -526,7 +521,7 @@ ${JSON.stringify(G.instance.options,null,2)}`);default:G.instance.reset(),G.inst
   &:hover {
     background-color: #0056b3;
   }
-`,hm="/assets/profile-BIewv-Hi.webp";function Sk(){const e=$e(),[t,n]=k.useState(null),[r,o]=k.useState(null),[i,l]=k.useState(null),[s,a]=k.useState("recent"),u=sessionStorage.getItem("accessToken"),c=at(),f=g=>{a(g)},h=async()=>{if(!c)throw new Error("API 클라이언트를 생성할 수 없습니다.");try{const g=await c.get("/api/user",{headers:{Authorization:`Bearer ${u}`}});n(g.data);const w=await c.get("/api/diagnosis",{headers:{Authorization:`Bearer ${u}`}});o(w.data);const p=await c.get("/api/favorites/hospital",{headers:{Authorization:`Bearer ${u}`}});l(p.data)}catch(g){console.error("Error fetching user info:",g),alert("로그인을 해 주세요"),e("/login")}},x=async()=>{if(window.confirm("탈퇴하시겠습니까?")){if(!c)throw new Error("API 클라이언트를 생성할 수 없습니다.");try{await c.delete("/api/user",{headers:{Authorization:`Bearer ${u}`}}),alert("탈퇴가 완료되었습니다."),e("/login")}catch(w){console.error("Error deleting user:",w),alert("탈퇴에 실패했습니다. 다시 시도해주세요.")}}},y=async()=>{if(!c)throw new Error("API 클라이언트를 생성할 수 없습니다.");const g=document.cookie.replace(/(?:(?:^|.*;\s*)refreshToken\s*=\s*([^;]*).*$)|^.*$/,"$1");try{await c.post("/api/logout",{},{headers:{Authorization:`Bearer ${u}`,refresh:g}}),document.cookie="refreshToken=; Max-Age=0; Secure; HttpOnly; SameSite=Strict",sessionStorage.removeItem("accessToken"),alert("로그아웃되었습니다"),e("/")}catch(w){console.error("Error Logout user:",w),alert("로그아웃에 실패했습니다. 다시 시도해주세요.")}};return k.useEffect(()=>{h()},[]),v.jsxs(Ek,{children:[v.jsxs(Ck,{children:[v.jsx(Pr,{onClick:()=>{e(-1)},children:"<"}),v.jsx(Pr,{children:"내 정보"}),v.jsx(Pr,{children:" "})]}),v.jsxs(Tk,{children:[v.jsxs(Rk,{children:[v.jsx(Pk,{src:hm}),v.jsx(Pr,{children:(t==null?void 0:t.username)||"정보 없음"})]}),v.jsx(fs,{onClick:()=>e("/mypage/info"),children:"개인정보 조회"}),v.jsxs(_k,{children:[v.jsx(Of,{onClick:y,children:"로그아웃"}),v.jsx(Of,{onClick:x,children:"탈퇴하기"})]})]}),v.jsxs(Ak,{children:[v.jsxs(jk,{children:[v.jsx(Lf,{active:s==="recent",onClick:()=>f("recent"),children:"최근 진단기록"}),v.jsx(Lf,{active:s==="favorites",onClick:()=>f("favorites"),children:"즐겨찾는 병원"})]}),v.jsx(Nk,{children:v.jsx(Pr,{children:s==="recent"?"최근 진단기록":"즐겨찾는 병원"})}),v.jsxs(Lk,{children:[s==="recent"&&(r&&r.length>0?r.map(g=>v.jsx(Nf,{imageUrl:g.imageUrl,children:v.jsxs("div",{children:[v.jsxs("p",{children:[v.jsx("strong",{children:"진단 결과:"})," ",g.result]}),v.jsxs("p",{children:[v.jsx("strong",{children:"신뢰도: "}),g.confidenceScore.split(".")[0]]}),v.jsxs("p",{children:[v.jsx("strong",{children:"유형:"})," ",g.diagnosisType]})]})},g.id)):v.jsx("p",{children:"결과가 없습니다"})),s==="favorites"&&(i&&i.length>0?i.map(g=>v.jsx(Nf,{children:v.jsxs("div",{children:[v.jsxs("p",{children:[v.jsx("strong",{children:"병원명:"})," ",g.hospitalName]}),v.jsxs("p",{children:[v.jsx("strong",{children:"주소:"})," ",g.address]}),v.jsxs("p",{children:[v.jsx("strong",{children:"연락처:"})," ",g.phoneNumber]})]})},g.id)):v.jsx("p",{children:"결과가 없습니다"}))]}),s==="recent"&&v.jsx(_f,{children:v.jsx(fs,{onClick:()=>e("/mypage/diagnostic"),children:"진단 목록 조회"})}),s==="favorites"&&v.jsx(_f,{children:v.jsx(fs,{onClick:()=>e("/mypage/favoriteHP"),children:"즐겨찾는 병원 조회"})})]})]})}const Lf=S.div`
+`,hm="/assets/profile-BIewv-Hi.webp";function Ek(){const e=$e(),[t,n]=k.useState(null),[r,o]=k.useState(null),[i,l]=k.useState(null),[s,a]=k.useState("recent"),u=sessionStorage.getItem("accessToken"),c=at(),f=g=>{a(g)},h=async()=>{if(!c)throw new Error("API 클라이언트를 생성할 수 없습니다.");try{const g=await c.get("/api/user",{headers:{Authorization:`Bearer ${u}`}});n(g.data);const w=await c.get("/api/diagnosis",{headers:{Authorization:`Bearer ${u}`}});o(w.data);const p=await c.get("/api/favorites/hospital",{headers:{Authorization:`Bearer ${u}`}});l(p.data)}catch(g){console.error("Error fetching user info:",g),alert("로그인을 해 주세요"),e("/login")}},x=async()=>{if(window.confirm("탈퇴하시겠습니까?")){if(!c)throw new Error("API 클라이언트를 생성할 수 없습니다.");try{await c.delete("/api/user",{headers:{Authorization:`Bearer ${u}`}}),alert("탈퇴가 완료되었습니다."),e("/login")}catch(w){console.error("Error deleting user:",w),alert("탈퇴에 실패했습니다. 다시 시도해주세요.")}}},y=async()=>{if(!c)throw new Error("API 클라이언트를 생성할 수 없습니다.");const g=document.cookie.replace(/(?:(?:^|.*;\s*)refreshToken\s*=\s*([^;]*).*$)|^.*$/,"$1");try{await c.post("/api/logout",{},{headers:{Authorization:`Bearer ${u}`,refresh:g}}),document.cookie="refreshToken=; Max-Age=0; Secure; HttpOnly; SameSite=Strict",sessionStorage.removeItem("accessToken"),alert("로그아웃되었습니다"),e("/")}catch(w){console.error("Error Logout user:",w),alert("로그아웃에 실패했습니다. 다시 시도해주세요.")}};return k.useEffect(()=>{h()},[]),v.jsxs(Ck,{children:[v.jsxs(Tk,{children:[v.jsx(Pr,{onClick:()=>{e(-1)},children:"<"}),v.jsx(Pr,{children:"내 정보"}),v.jsx(Pr,{children:" "})]}),v.jsxs(Rk,{children:[v.jsxs(Pk,{children:[v.jsx(Ak,{src:hm}),v.jsx(Pr,{children:(t==null?void 0:t.username)||"정보 없음"})]}),v.jsx(fs,{onClick:()=>e("/mypage/info"),children:"개인정보 조회"}),v.jsxs(Ok,{children:[v.jsx(Of,{onClick:y,children:"로그아웃"}),v.jsx(Of,{onClick:x,children:"탈퇴하기"})]})]}),v.jsxs(jk,{children:[v.jsxs(Lk,{children:[v.jsx(Lf,{active:s==="recent",onClick:()=>f("recent"),children:"최근 진단기록"}),v.jsx(Lf,{active:s==="favorites",onClick:()=>f("favorites"),children:"즐겨찾는 병원"})]}),v.jsx(_k,{children:v.jsx(Pr,{children:s==="recent"?"최근 진단기록":"즐겨찾는 병원"})}),v.jsxs(Nk,{children:[s==="recent"&&(r&&r.length>0?r.map(g=>v.jsx(Nf,{imageUrl:g.imageUrl,children:v.jsxs("div",{children:[v.jsxs("p",{children:[v.jsx("strong",{children:"진단 결과:"})," ",g.result]}),v.jsxs("p",{children:[v.jsx("strong",{children:"신뢰도: "}),g.confidenceScore.split(".")[0]]}),v.jsxs("p",{children:[v.jsx("strong",{children:"유형:"})," ",g.diagnosisType]})]})},g.id)):v.jsx("p",{children:"결과가 없습니다"})),s==="favorites"&&(i&&i.length>0?i.map(g=>v.jsx(Nf,{children:v.jsxs("div",{children:[v.jsxs("p",{children:[v.jsx("strong",{children:"병원명:"})," ",g.hospitalName]}),v.jsxs("p",{children:[v.jsx("strong",{children:"주소:"})," ",g.address]}),v.jsxs("p",{children:[v.jsx("strong",{children:"연락처:"})," ",g.phoneNumber]})]})},g.id)):v.jsx("p",{children:"결과가 없습니다"}))]}),s==="recent"&&v.jsx(_f,{children:v.jsx(fs,{onClick:()=>e("/mypage/diagnostic"),children:"진단 목록 조회"})}),s==="favorites"&&v.jsx(_f,{children:v.jsx(fs,{onClick:()=>e("/mypage/favoriteHP"),children:"즐겨찾는 병원 조회"})})]})]})}const Lf=S.div`
     width: 113px;
     height: 41px;
     display: flex;
@@ -538,13 +533,13 @@ ${JSON.stringify(G.instance.options,null,2)}`);default:G.instance.reset(),G.inst
     border-bottom: ${({active:e})=>e?"3px solid #074AFF":"3px solid transparent"};
     padding-bottom: 20px;
     cursor: pointer;
-`,Ek=S.div`
+`,Ck=S.div`
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: space-between;
     height: 100vh;
-`,Ck=S.div`
+`,Tk=S.div`
     margin-top: 85px;
     width: 100%;
     display: flex;
@@ -552,19 +547,19 @@ ${JSON.stringify(G.instance.options,null,2)}`);default:G.instance.reset(),G.inst
 `,Pr=S.span`
     font-weight: bold;
     font-size: 38px;
-`,Tk=S.div`
+`,Rk=S.div`
     width: 261px;
     margin: 0 70px 0 70px;
     height: 248px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-`,Rk=S.div`
+`,Pk=S.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-`,Pk=S.img`
+`,Ak=S.img`
     width: 121px;
     height: 121px;
     border-radius: 100%;
@@ -581,19 +576,19 @@ ${JSON.stringify(G.instance.options,null,2)}`);default:G.instance.reset(),G.inst
     font-weight: bold;
     color: #FFFFFF;
     padding: 0 10px 0 10px;
-`,Ak=S.div`
+`,jk=S.div`
     width: 100%;
     height: 377px;
     display: flex;
     flex-direction: column;
     align-items: center;
-`,jk=S.div`
+`,Lk=S.div`
     width: 100%;
     display: flex;
     justify-content: space-around;
     color: #A7A1AE;
     border-bottom: 1px solid;
-`,Lk=S.div`
+`,Nk=S.div`
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -617,14 +612,14 @@ ${JSON.stringify(G.instance.options,null,2)}`);default:G.instance.reset(),G.inst
     justify-content: center;
     align-items: center;
     flex-direction: column;
-`,Nk=S.div`
+`,_k=S.div`
     padding: 20px 0 15px 0;
 `,_f=S.div`
     margin-top: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-`,_k=S.div`
+`,Ok=S.div`
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
@@ -632,12 +627,12 @@ ${JSON.stringify(G.instance.options,null,2)}`);default:G.instance.reset(),G.inst
     border-bottom: 1px solid;
     margin-top: 10px;
     padding-bottom: 5px;
-`;function Ok(){const e=ut(),t=$e(),{diagnosisType:n}=e.state;let r="";switch(n){case"CANCER":r="피부암 - 피부진단";break;case"DISEASE":r="피부질환 - 피부진단";break;default:r="알 수 없음"}const o=i=>()=>{t("/diagnosis/upload",{state:{diagnosisType:i}})};return v.jsxs(Ik,{children:[v.jsxs(zk,{children:[v.jsx(ds,{onClick:()=>{t(-1)},children:"<"}),v.jsx(ds,{children:r}),v.jsx(ds,{children:" "})]}),v.jsxs(Dk,{children:[v.jsx(ps,{children:"1. 밝은 곳과 플래시를 사용하여 선명하게 촬영해 주세요"}),v.jsx(ps,{children:"2. 확인이 필요한 부위를 가리지 않고 촬영해 주세요"}),v.jsx(ps,{children:"3. 이미지의 초점이 맞는지 확인해 주세요"})]}),v.jsx(Mk,{onClick:o(n),children:"확인"})]})}const Ik=S.div`
+`;function Ik(){const e=ut(),t=$e(),{diagnosisType:n}=e.state;let r="";switch(n){case"CANCER":r="피부암 - 피부진단";break;case"DISEASE":r="피부질환 - 피부진단";break;default:r="알 수 없음"}const o=i=>()=>{t("/diagnosis/upload",{state:{diagnosisType:i}})};return v.jsxs(zk,{children:[v.jsxs(Dk,{children:[v.jsx(ds,{onClick:()=>{t(-1)},children:"<"}),v.jsx(ds,{children:r}),v.jsx(ds,{children:" "})]}),v.jsxs(Mk,{children:[v.jsx(ps,{children:"1. 밝은 곳과 플래시를 사용하여 선명하게 촬영해 주세요"}),v.jsx(ps,{children:"2. 확인이 필요한 부위를 가리지 않고 촬영해 주세요"}),v.jsx(ps,{children:"3. 이미지의 초점이 맞는지 확인해 주세요"})]}),v.jsx(Fk,{onClick:o(n),children:"확인"})]})}const zk=S.div`
   display: flex;
   align-items: center;
   flex-direction: column;
   height: 100vh; /* 화면 전체 높이 */
-`,zk=S.div`
+`,Dk=S.div`
   margin-top: 85px;
   width: 100%;
   display: flex;
@@ -645,7 +640,7 @@ ${JSON.stringify(G.instance.options,null,2)}`);default:G.instance.reset(),G.inst
 `,ds=S.span`
   font-weight: bold;
   font-size: 38px;
-`,Dk=S.div`
+`,Mk=S.div`
   width: 100%;
   height: 880px;
   border-radius: 10px 10px 0 0;
@@ -659,7 +654,7 @@ ${JSON.stringify(G.instance.options,null,2)}`);default:G.instance.reset(),G.inst
   font-weight: 600;
   color: #000000;
   margin: 30px;
-`,Mk=S.div`
+`,Fk=S.div`
   position: fixed; /* 화면에 고정 */
   bottom: 0; /* 화면의 가장 아래로 이동 */
   left: 0; /* 왼쪽 끝에 맞춤 */
@@ -674,12 +669,12 @@ ${JSON.stringify(G.instance.options,null,2)}`);default:G.instance.reset(),G.inst
   color: white;
   font-size: 50px;
   font-weight: 600;
-`,Fk=S.div`
+`,$k=S.div`
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: space-between;
-`,$k=S.div`
+`,Bk=S.div`
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -694,14 +689,14 @@ ${JSON.stringify(G.instance.options,null,2)}`);default:G.instance.reset(),G.inst
     background: #f5f5f5;
     font-size: 25px;
     font-weight: bold;
-`,Bk=S.div`
+`,Uk=S.div`
     width: 100%;
     background-color: #074AFF;
     border-radius: 0 0 25px 25px;
     display: flex;
     flex-direction: column;
     align-items: center;
-`,Uk=S.div`
+`,bk=S.div`
     width: 100%;
     margin-top: 85px;
     display: flex;
@@ -710,16 +705,16 @@ ${JSON.stringify(G.instance.options,null,2)}`);default:G.instance.reset(),G.inst
     font-weight: bold;
     font-size: 38px;
     color: white;
-`,bk=S.div`
+`,Hk=S.div`
     width: 261px;
     height: 248px;
-`,Hk=S.div`
+`,Wk=S.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     margin: 34px;
-`,Wk=S.img`
+`,Vk=S.img`
     width: 121px;
     height: 121px;
     border-radius: 100%;
@@ -761,63 +756,63 @@ ${JSON.stringify(G.instance.options,null,2)}`);default:G.instance.reset(),G.inst
     background: #f5f5f5;
     font-size: 25px;
     font-weight: bold;
-`;function Vk(){const e=$e(),[t,n]=k.useState(null),[r,o]=k.useState(!1),[i,l]=k.useState(null),s=async()=>{const c=sessionStorage.getItem("accessToken"),f=at();if(!f)throw new Error("API 클라이언트를 생성할 수 없습니다.");try{const h=await f.get("/api/user",{headers:{Authorization:`Bearer ${c}`}});n(h.data),l(h.data)}catch(h){console.error("Error fetching user info:",h),alert("로그인을 해 주세요"),e("/login")}},a=c=>{const{name:f,value:h}=c.target;i&&l({...i,[f]:h})},u=async()=>{const c=sessionStorage.getItem("accessToken"),f=at();if(!f)throw new Error("API 클라이언트를 생성할 수 없습니다.");try{(await f.patch("/api/user",i,{headers:{Authorization:`Bearer ${c}`}})).status===200&&(o(!1),n(i),alert("개인정보가 수정되었습니다."))}catch(h){console.error("Error saving user info:",h)}};return k.useEffect(()=>{s()},[]),B(Fk,{children:[B(Bk,{children:[B(Uk,{children:[N(Qo,{onClick:()=>{e(-1)},children:"<"}),N(Qo,{children:"개인정보 조회"}),N(Qo,{children:" "})]}),N(bk,{children:B(Hk,{children:[N(Wk,{src:hm}),N(Qo,{children:(t==null?void 0:t.username)||"정보 없음"})]})})]}),B($k,{children:[r?B(jr,{children:[N(Lr,{children:"이름"}),N(Ar,{name:"username",value:(i==null?void 0:i.username)||"",onChange:a})]}):N(L1,{}),B(jr,{children:[N(Lr,{children:"아이디"}),r?N(Ar,{name:"loginId",value:(i==null?void 0:i.loginId)||"",onChange:a}):N(Ko,{children:(t==null?void 0:t.loginId)||"정보 없음"})]}),B(jr,{children:[N(Lr,{children:"이메일"}),r?N(Ar,{name:"email",value:(i==null?void 0:i.email)||"",onChange:a}):N(Ko,{children:(t==null?void 0:t.email)||"정보 없음"})]}),B(jr,{children:[N(Lr,{children:"나이"}),r?N(Ar,{name:"age",type:"number",value:(i==null?void 0:i.age)||"",onChange:a}):N(Ko,{children:(t==null?void 0:t.age)||"정보 없음"})]}),B(jr,{children:[N(Lr,{children:"성별"}),r?N(Ar,{name:"gender",value:(i==null?void 0:i.gender)||"",onChange:a}):N(Ko,{children:(t==null?void 0:t.gender)||"정보 없음"})]})]}),r?N(If,{onClick:u,children:"저장"}):N(If,{onClick:()=>o(!0),children:"개인 정보 수정"})]})}const mm="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAACHCAYAAADdoJ0eAAAACXBIWXMAACE4AAAhOAFFljFgAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAALsSURBVHgB7d3NcdNAHEDx/youJHQQKojpAJOTh0NwBZQQpwOoIOTA+ARpwXQQKkAl5MgBa7EcckRy5DjevHm/Q3SwNJrR8671NZMUBVpcf5tHpIt4UfLl9PxsHoWpQmgGhjMwnIHhDAxnYLh0f0lSmJROI8c4XpIUy8j5RxRmVOT1Zo6XZ/OFTOMojFM0nIHhDAxnYDgDwxkYzsBwBoYzMJyB4QwMZ2A4A8ON2rcB//vpLo/tCn18VqQ9HufUte1ur6+W+RppifZ5nJ2i4QwMZ2A4A8MZGM7AcAaGMzCcgeEMDGdgOAPDGRhuFAVaXN2Mo2rGMURTLaezyTIGONR+96nIwPcHeeDjs6pp/y5jiEPtd4+couEMDGdgOAPDGRjOwHAGhjMwnIHhDAxnYDgDwxkYzsBwBoYzMJyB4QwMZ2A4A8MZGM7AcAaGMzCcgeEMDGdgOAPDGRjOwHAGhjMwnIHhDAxnYDgDwxkYzsBwBoYzMJyB4QwMZ2A4A8MZGM7AcAaGMzCcgeEMDGdgOAPDGRjOwHAGhjMwnIHhDAxnYDgDwxkYzsBwBoYzMJyB4QwMV+S/eJ+en83Xi3k8s0Ptd58cwXAGhjMwnIHhDAxnYDgDwxkYzsBwBoYzMJyB4QwMZ2C4PT4uTBeL6+8XoYPqHMG5ibtQ0XLqbtQ9RY9yHSra0aqquz7vDJz+HN2GitZEdDZK0WP9O/prvTgOlaienr971bVC/1l0k69Dhepv0xv4d1Sf1sPck60SNdWXvlV6A89mk7vc5M+hwuTL6WxS96211Y2OdhSvF3WoFPW/V3x7bRW4HcXRpDdO1UWo2xbbrrz1rcp2OlgZ+aDaY980abLN1PzgUfei388mt7lJr8Pp+hA2A6xt8JiNHv2wYfPtuZ8ivHx6JinFMgbE3WwbO1hc3XxIVf6YI05CT64Nm1epPVtexkA7BX7w9ermpKqatyml08hxnL3zNUhqf/pSus2r5ud6cl3uEvbBX8s3pqVPBQLCAAAAAElFTkSuQmCC";function Qk(){const e=$e(),[t,n]=k.useState(null),r=sessionStorage.getItem("accessToken"),o=at();if(!o)throw new Error("API 클라이언트를 생성할 수 없습니다.");const i=async()=>{try{const a=await o.get("/api/diagnosis",{headers:{Authorization:`Bearer ${r}`}});console.log(a.data),n(a.data)}catch{alert("로그인을 해 주세요"),e("/login")}},l=async a=>{e(`/diagnosis/result/${a}`,{state:a})};k.useEffect(()=>{i()},[]);const s=async a=>{try{await o.delete(`/api/diagnosis/${a}`,{headers:{Authorization:`Bearer ${r}`}}),n(u=>(u==null?void 0:u.filter(c=>c.id!==a))||null),alert("삭제되었습니다.")}catch(u){console.error("Error deleting diagnosis data:",u),alert("삭제에 실패했습니다.")}};return B(Kk,{children:[B(iS,{children:[N(hs,{onClick:()=>e(-1),children:"<"}),N(hs,{children:"진단 목록 조회"}),N(hs,{children:"  "})]}),t==null?void 0:t.map(a=>B(Gk,{children:[B(lS,{onClick:()=>{l(a.id)},children:[B(Yk,{children:[N(qk,{diagnosisType:a.diagnosisType}),N(Xk,{children:a.diagnosisType==="CANCER"?"피부암":a.diagnosisType==="DISEASE"?"피부 질환":a.diagnosisType})]}),N(rS,{src:a.imageUrl}),B(Jk,{children:[B(Zk,{children:[N(eS,{children:" "}),N(tS,{children:a.result})]}),N(nS,{children:a.confidenceScore})]})]}),N(oS,{src:mm,onClick:()=>s(a.id)})]},a.id))]})}const Kk=S.div`
+`;function Qk(){const e=$e(),[t,n]=k.useState(null),[r,o]=k.useState(!1),[i,l]=k.useState(null),s=async()=>{const c=sessionStorage.getItem("accessToken"),f=at();if(!f)throw new Error("API 클라이언트를 생성할 수 없습니다.");try{const h=await f.get("/api/user",{headers:{Authorization:`Bearer ${c}`}});n(h.data),l(h.data)}catch(h){console.error("Error fetching user info:",h),alert("로그인을 해 주세요"),e("/login")}},a=c=>{const{name:f,value:h}=c.target;i&&l({...i,[f]:h})},u=async()=>{const c=sessionStorage.getItem("accessToken"),f=at();if(!f)throw new Error("API 클라이언트를 생성할 수 없습니다.");try{(await f.patch("/api/user",i,{headers:{Authorization:`Bearer ${c}`}})).status===200&&(o(!1),n(i),alert("개인정보가 수정되었습니다."))}catch(h){console.error("Error saving user info:",h)}};return k.useEffect(()=>{s()},[]),B($k,{children:[B(Uk,{children:[B(bk,{children:[N(Qo,{onClick:()=>{e(-1)},children:"<"}),N(Qo,{children:"개인정보 조회"}),N(Qo,{children:" "})]}),N(Hk,{children:B(Wk,{children:[N(Vk,{src:hm}),N(Qo,{children:(t==null?void 0:t.username)||"정보 없음"})]})})]}),B(Bk,{children:[r?B(jr,{children:[N(Lr,{children:"이름"}),N(Ar,{name:"username",value:(i==null?void 0:i.username)||"",onChange:a})]}):N(L1,{}),B(jr,{children:[N(Lr,{children:"아이디"}),r?N(Ar,{name:"loginId",value:(i==null?void 0:i.loginId)||"",onChange:a}):N(Ko,{children:(t==null?void 0:t.loginId)||"정보 없음"})]}),B(jr,{children:[N(Lr,{children:"이메일"}),r?N(Ar,{name:"email",value:(i==null?void 0:i.email)||"",onChange:a}):N(Ko,{children:(t==null?void 0:t.email)||"정보 없음"})]}),B(jr,{children:[N(Lr,{children:"나이"}),r?N(Ar,{name:"age",type:"number",value:(i==null?void 0:i.age)||"",onChange:a}):N(Ko,{children:(t==null?void 0:t.age)||"정보 없음"})]}),B(jr,{children:[N(Lr,{children:"성별"}),r?N(Ar,{name:"gender",value:(i==null?void 0:i.gender)||"",onChange:a}):N(Ko,{children:(t==null?void 0:t.gender)||"정보 없음"})]})]}),r?N(If,{onClick:u,children:"저장"}):N(If,{onClick:()=>o(!0),children:"개인 정보 수정"})]})}const mm="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAACHCAYAAADdoJ0eAAAACXBIWXMAACE4AAAhOAFFljFgAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAALsSURBVHgB7d3NcdNAHEDx/youJHQQKojpAJOTh0NwBZQQpwOoIOTA+ARpwXQQKkAl5MgBa7EcckRy5DjevHm/Q3SwNJrR8671NZMUBVpcf5tHpIt4UfLl9PxsHoWpQmgGhjMwnIHhDAxnYLh0f0lSmJROI8c4XpIUy8j5RxRmVOT1Zo6XZ/OFTOMojFM0nIHhDAxnYDgDwxkYzsBwBoYzMJyB4QwMZ2A4A8ON2rcB//vpLo/tCn18VqQ9HufUte1ur6+W+RppifZ5nJ2i4QwMZ2A4A8MZGM7AcAaGMzCcgeEMDGdgOAPDGRhuFAVaXN2Mo2rGMURTLaezyTIGONR+96nIwPcHeeDjs6pp/y5jiEPtd4+couEMDGdgOAPDGRjOwHAGhjMwnIHhDAxnYDgDwxkYzsBwBoYzMJyB4QwMZ2A4A8MZGM7AcAaGMzCcgeEMDGdgOAPDGRjOwHAGhjMwnIHhDAxnYDgDwxkYzsBwBoYzMJyB4QwMZ2A4A8MZGM7AcAaGMzCcgeEMDGdgOAPDGRjOwHAGhjMwnIHhDAxnYDgDwxkYzsBwBoYzMJyB4QwMV+S/eJ+en83Xi3k8s0Ptd58cwXAGhjMwnIHhDAxnYDgDwxkYzsBwBoYzMJyB4QwMZ2C4PT4uTBeL6+8XoYPqHMG5ibtQ0XLqbtQ9RY9yHSra0aqquz7vDJz+HN2GitZEdDZK0WP9O/prvTgOlaienr971bVC/1l0k69Dhepv0xv4d1Sf1sPck60SNdWXvlV6A89mk7vc5M+hwuTL6WxS96211Y2OdhSvF3WoFPW/V3x7bRW4HcXRpDdO1UWo2xbbrrz1rcp2OlgZ+aDaY980abLN1PzgUfei388mt7lJr8Pp+hA2A6xt8JiNHv2wYfPtuZ8ivHx6JinFMgbE3WwbO1hc3XxIVf6YI05CT64Nm1epPVtexkA7BX7w9ermpKqatyml08hxnL3zNUhqf/pSus2r5ud6cl3uEvbBX8s3pqVPBQLCAAAAAElFTkSuQmCC";function Kk(){const e=$e(),[t,n]=k.useState(null),r=sessionStorage.getItem("accessToken"),o=at();if(!o)throw new Error("API 클라이언트를 생성할 수 없습니다.");const i=async()=>{try{const a=await o.get("/api/diagnosis",{headers:{Authorization:`Bearer ${r}`}});console.log(a.data),n(a.data)}catch{alert("로그인을 해 주세요"),e("/login")}},l=async a=>{e(`/diagnosis/result/${a}`,{state:a})};k.useEffect(()=>{i()},[]);const s=async a=>{try{await o.delete(`/api/diagnosis/${a}`,{headers:{Authorization:`Bearer ${r}`}}),n(u=>(u==null?void 0:u.filter(c=>c.id!==a))||null),alert("삭제되었습니다.")}catch(u){console.error("Error deleting diagnosis data:",u),alert("삭제에 실패했습니다.")}};return B(Gk,{children:[B(lS,{children:[N(hs,{onClick:()=>e(-1),children:"<"}),N(hs,{children:"진단 목록 조회"}),N(hs,{children:"  "})]}),t==null?void 0:t.map(a=>B(Yk,{children:[B(sS,{onClick:()=>{l(a.id)},children:[B(qk,{children:[N(Xk,{diagnosisType:a.diagnosisType}),N(Jk,{children:a.diagnosisType==="CANCER"?"피부암":a.diagnosisType==="DISEASE"?"피부 질환":a.diagnosisType})]}),N(oS,{src:a.imageUrl}),B(Zk,{children:[B(eS,{children:[N(tS,{children:" "}),N(nS,{children:a.result})]}),N(rS,{children:a.confidenceScore})]})]}),N(iS,{src:mm,onClick:()=>s(a.id)})]},a.id))]})}const Gk=S.div`
     display: flex;
     align-items: center;
     flex-direction: column;
     height: 100vh; /* 화면 전체 높이 */
-`,Gk=S.div`
+`,Yk=S.div`
     width: 334px;
     height: 65px;
     margin: 39px 34px 20px 34px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-`,Yk=S.div`
+`,qk=S.div`
     width: 48px;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-`,qk=S.img`
+`,Xk=S.img`
     width: 48px;
     height: 38px;
     background-color: ${e=>e.diagnosisType==="CANCER"?"red":e.diagnosisType==="DISEASE"?"green":"gray"};
     border-radius: 10px;
-`,Xk=S.span`
+`,Jk=S.span`
     font-weight: 400;
     font-size: 18px;
-`,Jk=S.div`
+`,Zk=S.div`
     width: 144px;
     display: flex;
     justify-content: space-between;
-`,Zk=S.div`
+`,eS=S.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-`,eS=S.span`
+`,tS=S.span`
     font-weight: bold;
     font-size: 20px;
-`,tS=S.span`
+`,nS=S.span`
     width: 81px;
     font-weight: bold;  
     font-size: 30px;
     white-space: nowrap; /* 줄바꿈 방지 */
     overflow: hidden; /* 넘치는 부분 숨김 */
     text-overflow: ellipsis; /* ... 처리 */
-`,nS=S.span`
+`,rS=S.span`
     font-weight: 400;
     font-size: 20px;
     display: flex;
     align-items: end;
     
-`,rS=S.img`
+`,oS=S.img`
     width: 74px;
     border-radius: 10px;
-`,oS=S.img`
+`,iS=S.img`
     width: 40px;
     height: 45px;
-`,iS=S.div`
+`,lS=S.div`
     margin-top: 85px;
     width: 100%;
     display: flex;
@@ -825,17 +820,17 @@ ${JSON.stringify(G.instance.options,null,2)}`);default:G.instance.reset(),G.inst
 `,hs=S.span`
     font-weight: bold;
     font-size: 38px;
-`,lS=S.div`
+`,sS=S.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-`,sS=({onMarkersChange:e,onMarkerSelect:t})=>{const[n,r]=k.useState({lat:37.55465,lng:126.9706}),[o,i]=k.useState([]),[l,s]=k.useState(null),a=at();if(!a)return console.error("apiClient가 초기화되지 않았습니다."),alert("서버와 연결할 수 없습니다. 나중에 다시 시도하세요."),null;k.useEffect(()=>{navigator.geolocation?navigator.geolocation.getCurrentPosition(f=>{const{latitude:h,longitude:x}=f.coords;r({lat:h,lng:x})},f=>{console.error("현재 위치를 불러올 수 없습니다:",f)}):alert("Geolocation을 지원하지 않는 브라우저입니다."),(async()=>{const f=sessionStorage.getItem("accessToken");try{const h=await a.get("/api/favorites/hospital",{headers:{Authorization:`Bearer ${f}`}});if(h.status===200){const x=h.data.map(y=>({position:{lat:y.latitude,lng:y.longitude},content:y.hospitalName,address:y.address,phone:y.phoneNumber||"전화번호 없음"}));i(x),e(x)}else alert("즐겨찾기 병원 정보를 가져오는 데 실패했습니다.")}catch(h){console.error("병원 정보 가져오기 오류:",h),alert("서버와 통신하는 중 오류가 발생했습니다.")}})()},[]);const u=c=>{s(c),t(c)};return v.jsx(dm,{center:n,style:{width:"100%",height:"760px"},level:3,children:o.map((c,f)=>v.jsx(pm,{position:c.position,onClick:()=>u(c),children:l&&l.content===c.content&&v.jsx("div",{style:{color:"#000"},children:c.content})},f))})};function aS(){const e=$e(),[t,n]=k.useState([]),[r,o]=k.useState(null),i=sessionStorage.getItem("accessToken"),l=at(),s=c=>n(c),a=c=>o(c),u=async()=>{if(r){if(!i){alert("로그인이 필요합니다.");return}try{const c={hospitalName:r.content,address:r.address,latitude:r.position.lat,longitude:r.position.lng,phoneNumber:r.phone};if(l)(await l.post("/api/favorites/hospital",c,{headers:{Authorization:`Bearer ${i}`}})).status===200?alert("즐겨찾기에 추가되었습니다!"):alert("추가 중 문제가 발생했습니다.");else throw new Error("API 클라이언트를 생성할 수 없습니다.")}catch(c){console.error("즐겨찾기 추가 오류:",c),alert("추가 실패: 오류가 발생했습니다.")}}};return v.jsxs(uS,{children:[v.jsxs(cS,{children:[v.jsx(ms,{onClick:()=>e(-1),children:"<"}),v.jsx(ms,{children:"즐겨찾는 병원 목록"}),v.jsx(ms,{children:" "})]}),v.jsx(sS,{onMarkersChange:s,onMarkerSelect:a}),v.jsx(fS,{children:r?v.jsxs(zf,{children:[v.jsxs(Df,{children:[v.jsx(Mf,{isSpecialist:r.content.includes("피부과")}),v.jsx(Ff,{children:r.content.includes("피부과")?"전문의":"의원"})]}),v.jsx($f,{children:v.jsx(Bf,{children:r.content})}),v.jsxs("div",{children:[v.jsxs("p",{children:["주소: ",r.address]}),v.jsxs("p",{children:["전화번호: ",r.phone]})]}),v.jsx(dS,{src:mm,onClick:u})]}):t.length===0?v.jsx("div",{children:"등록된 즐겨찾기 병원이 없습니다."}):t.map((c,f)=>{const h=c.content.includes("피부과");return v.jsxs(zf,{children:[v.jsxs(Df,{children:[v.jsx(Mf,{isSpecialist:h}),v.jsx(Ff,{children:h?"전문의":"의원"})]}),v.jsx($f,{children:v.jsx(Bf,{children:c.content})}),v.jsxs("div",{children:[v.jsxs("p",{children:["주소: ",c.address]}),v.jsxs("p",{children:["전화번호: ",c.phone]})]})]},f)})})]})}const uS=S.div`
+`,aS=({onMarkersChange:e,onMarkerSelect:t})=>{const[n,r]=k.useState({lat:37.55465,lng:126.9706}),[o,i]=k.useState([]),[l,s]=k.useState(null),a=at();if(!a)return console.error("apiClient가 초기화되지 않았습니다."),alert("서버와 연결할 수 없습니다. 나중에 다시 시도하세요."),null;k.useEffect(()=>{navigator.geolocation?navigator.geolocation.getCurrentPosition(f=>{const{latitude:h,longitude:x}=f.coords;r({lat:h,lng:x})},f=>{console.error("현재 위치를 불러올 수 없습니다:",f)}):alert("Geolocation을 지원하지 않는 브라우저입니다."),(async()=>{const f=sessionStorage.getItem("accessToken");try{const h=await a.get("/api/favorites/hospital",{headers:{Authorization:`Bearer ${f}`}});if(h.status===200){const x=h.data.map(y=>({position:{lat:y.latitude,lng:y.longitude},content:y.hospitalName,address:y.address,phone:y.phoneNumber||"전화번호 없음"}));i(x),e(x)}else alert("즐겨찾기 병원 정보를 가져오는 데 실패했습니다.")}catch(h){console.error("병원 정보 가져오기 오류:",h),alert("서버와 통신하는 중 오류가 발생했습니다.")}})()},[]);const u=c=>{s(c),t(c)};return v.jsx(dm,{center:n,style:{width:"100%",height:"760px"},level:3,children:o.map((c,f)=>v.jsx(pm,{position:c.position,onClick:()=>u(c),children:l&&l.content===c.content&&v.jsx("div",{style:{color:"#000"},children:c.content})},f))})};function uS(){const e=$e(),[t,n]=k.useState([]),[r,o]=k.useState(null),i=sessionStorage.getItem("accessToken"),l=at(),s=c=>n(c),a=c=>o(c),u=async()=>{if(r){if(!i){alert("로그인이 필요합니다.");return}try{const c={hospitalName:r.content,address:r.address,latitude:r.position.lat,longitude:r.position.lng,phoneNumber:r.phone};if(l)(await l.post("/api/favorites/hospital",c,{headers:{Authorization:`Bearer ${i}`}})).status===200?alert("즐겨찾기에 추가되었습니다!"):alert("추가 중 문제가 발생했습니다.");else throw new Error("API 클라이언트를 생성할 수 없습니다.")}catch(c){console.error("즐겨찾기 추가 오류:",c),alert("추가 실패: 오류가 발생했습니다.")}}};return v.jsxs(cS,{children:[v.jsxs(fS,{children:[v.jsx(ms,{onClick:()=>e(-1),children:"<"}),v.jsx(ms,{children:"즐겨찾는 병원 목록"}),v.jsx(ms,{children:" "})]}),v.jsx(aS,{onMarkersChange:s,onMarkerSelect:a}),v.jsx(dS,{children:r?v.jsxs(zf,{children:[v.jsxs(Df,{children:[v.jsx(Mf,{isSpecialist:r.content.includes("피부과")}),v.jsx(Ff,{children:r.content.includes("피부과")?"전문의":"의원"})]}),v.jsx($f,{children:v.jsx(Bf,{children:r.content})}),v.jsxs("div",{children:[v.jsxs("p",{children:["주소: ",r.address]}),v.jsxs("p",{children:["전화번호: ",r.phone]})]}),v.jsx(pS,{src:mm,onClick:u})]}):t.length===0?v.jsx("div",{children:"등록된 즐겨찾기 병원이 없습니다."}):t.map((c,f)=>{const h=c.content.includes("피부과");return v.jsxs(zf,{children:[v.jsxs(Df,{children:[v.jsx(Mf,{isSpecialist:h}),v.jsx(Ff,{children:h?"전문의":"의원"})]}),v.jsx($f,{children:v.jsx(Bf,{children:c.content})}),v.jsxs("div",{children:[v.jsxs("p",{children:["주소: ",c.address]}),v.jsxs("p",{children:["전화번호: ",c.phone]})]})]},f)})})]})}const cS=S.div`
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: space-between;
   height: 100vh;
-`,cS=S.div`
+`,fS=S.div`
   margin: 85px 0 65px 0;
   width: 100%;
   display: flex;
@@ -843,7 +838,7 @@ ${JSON.stringify(G.instance.options,null,2)}`);default:G.instance.reset(),G.inst
 `,ms=S.span`
   font-weight: bold;
   font-size: 38px;
-`,fS=S.div`
+`,dS=S.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -881,7 +876,7 @@ ${JSON.stringify(G.instance.options,null,2)}`);default:G.instance.reset(),G.inst
 `,Bf=S.span`
   font-weight: bold;
   font-size: 30px;
-`,dS=S.img`
+`,pS=S.img`
 width: 40px;
 height: 40px;
   cursor: pointer;
@@ -889,10 +884,10 @@ height: 40px;
   &:hover {
     background-color: #0056b3;
   }
-`;function pS(){return v.jsx(hS,{children:v.jsxs(qv,{children:[v.jsx(Ne,{path:"/",element:v.jsx(_1,{})}),v.jsx(Ne,{path:"/login",element:v.jsx(vw,{})}),v.jsx(Ne,{path:"/signup",element:v.jsx(_w,{})}),v.jsx(Ne,{path:"/signup/info",element:v.jsx(Mw,{})}),v.jsx(Ne,{path:"/signup/success",element:v.jsx(Vw,{})}),v.jsx(Ne,{path:"/mypage",element:v.jsx(Sk,{})}),v.jsx(Ne,{path:"/mypage/info",element:v.jsx(Vk,{})}),v.jsx(Ne,{path:"/mypage/diagnostic",element:v.jsx(Qk,{})}),v.jsx(Ne,{path:"/mypage/favoriteHP",element:v.jsx(aS,{})}),v.jsx(Ne,{path:"/diagnosis",element:v.jsx(Ok,{})}),v.jsx(Ne,{path:"/diagnosis/upload",element:v.jsx(Kw,{})}),v.jsx(Ne,{path:"/diagnosis/result/:id",element:v.jsx(Zw,{})}),v.jsx(Ne,{path:"/nearhospital",element:v.jsx(yk,{})})]})})}const hS=S.div`
+`;function hS(){return v.jsx(mS,{children:v.jsxs(qv,{children:[v.jsx(Ne,{path:"/",element:v.jsx(_1,{})}),v.jsx(Ne,{path:"/login",element:v.jsx(vw,{})}),v.jsx(Ne,{path:"/signup",element:v.jsx(_w,{})}),v.jsx(Ne,{path:"/signup/info",element:v.jsx(Mw,{})}),v.jsx(Ne,{path:"/signup/success",element:v.jsx(Qw,{})}),v.jsx(Ne,{path:"/mypage",element:v.jsx(Ek,{})}),v.jsx(Ne,{path:"/mypage/info",element:v.jsx(Qk,{})}),v.jsx(Ne,{path:"/mypage/diagnostic",element:v.jsx(Kk,{})}),v.jsx(Ne,{path:"/mypage/favoriteHP",element:v.jsx(uS,{})}),v.jsx(Ne,{path:"/diagnosis",element:v.jsx(Ik,{})}),v.jsx(Ne,{path:"/diagnosis/upload",element:v.jsx(Gw,{})}),v.jsx(Ne,{path:"/diagnosis/result/:id",element:v.jsx(ek,{})}),v.jsx(Ne,{path:"/nearhospital",element:v.jsx(vk,{})})]})})}const mS=S.div`
   background-color: #f5f5f5; /* 배경색 */
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center
-`,Uf=document.getElementById("root");Uf?nh(Uf).render(v.jsx(rn.StrictMode,{children:v.jsxs(w1,{children:[" ",v.jsx(pS,{})]})})):console.error("Root element not found. Please ensure your HTML file contains a div with id='root'.");
+`,Uf=document.getElementById("root");Uf?nh(Uf).render(v.jsx(rn.StrictMode,{children:v.jsxs(w1,{children:[" ",v.jsx(hS,{})]})})):console.error("Root element not found. Please ensure your HTML file contains a div with id='root'.");
