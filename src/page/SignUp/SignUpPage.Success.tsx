@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import styled from "@emotion/styled";
+import kining from "../../assets/kining3.png"
 import logo from "../../assets/logo_b.png";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -16,18 +17,13 @@ const Logo = styled.img`
   height: 60px;
 `;
 
-const ImgWrapper = styled.div`
-    width: 319px;
-    height: 239px;
-    background-color: red;
-    border-radius: 25px;
-    margin-top: 123px;
+const ImgWrapper = styled.img`
+    margin-top: 100px;
 `
 
 const TextContainer = styled.div`
     width: 366px;
     height: 166px;
-    margin-top: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -73,7 +69,7 @@ function Success() {
   return (
     <HomeContainer>
         <Logo src={logo} alt="skini-Logo" />
-        <ImgWrapper/>
+        <ImgWrapper src={kining}/>
         <TextContainer>
             <Title>회원가입 완료</Title>
             <Description>{username} 님 환영합니다!</Description>
