@@ -1,7 +1,7 @@
 import Maps2 from "./Maps2";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import client from "@/client";
 import deleteIcon from "../../assets/Delete.png";
 
