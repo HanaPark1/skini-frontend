@@ -55,7 +55,7 @@ function FavoritesHospital() {
             }
         } catch (error) {
             console.error("즐겨찾기 추가 오류:", error);
-            alert("추가 실패: 서버와 통신하는 중 오류가 발생했습니다.");
+            alert("추가 실패: 오류가 발생했습니다.");
         }
     };
 
