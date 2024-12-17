@@ -70,7 +70,7 @@ function RecentDiagnostic() {
                 <DetailContainer key={diagnosis.id}>
                     <ResultClickContainer onClick={() => { handleOpen(diagnosis.id) }}>
                         <CategoryContainer>
-                            <CategoryImg />
+                        <CategoryImg diagnosisType={diagnosis.diagnosisType} />
                             <CategoryText>
                                 {diagnosis.diagnosisType === 'CANCER'
                                     ? '피부암'
@@ -122,10 +122,11 @@ const CategoryContainer = styled.div`
     justify-content: space-between;
 `
 
-const CategoryImg = styled.div`
+const CategoryImg = styled.img <{ diagnosisType: string }>`
     width: 48px;
     height: 38px;
-    background-color: green;
+    background-color: ${(props) =>
+        props.diagnosisType === 'CANCER' ? 'red' : props.diagnosisType === 'DISEASE' ? 'green' : 'gray'};
     border-radius: 10px;
 `
 
