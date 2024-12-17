@@ -164,7 +164,7 @@ function MyPage(): JSX.Element {
                     {activeCategory === 'recent' && (
                         diagnosisList && diagnosisList.length > 0 ? (
                             diagnosisList.map((diagnosis) => (
-                                <ItemWrapper key={diagnosis.id} imageUrl={diagnosis.imageUrl} onClick={() => { navigate(`/diagnosis/result/${diagnosis.id}`) }}>
+                                <ItemWrapper key={diagnosis.id} imageUrl={diagnosis.imageUrl} >
                                     <div>
                                         <p><strong>진단 결과:</strong> {diagnosis.result}</p>
                                         <p><strong>신뢰도: </strong>{diagnosis.confidenceScore.split('.')[0]}</p>
@@ -200,7 +200,7 @@ function MyPage(): JSX.Element {
 
                 {activeCategory === 'favorites' && (
                     <ListBtnWrapper>
-                        <ProfileBtn onClick={() => navigate('/mypage/diagnostic')}>즐겨찾는 병원 조회</ProfileBtn>
+                        <ProfileBtn onClick={() => navigate('/mypage/favoriteHP')}>즐겨찾는 병원 조회</ProfileBtn>
                     </ListBtnWrapper>
                 )}
             </MyPageCategoryContainer>
@@ -295,7 +295,6 @@ const MyPageCategoryListContainer = styled.div`
     justify-content: space-around;
     color: #A7A1AE;
     border-bottom: 1px solid;
-
 `;
 
 const ItemsContainer = styled.div`
@@ -303,7 +302,7 @@ const ItemsContainer = styled.div`
     align-items: center;
     justify-content: flex-start;
     overflow-x: auto;
-    width: 100%;
+    width: 450px;
     &::-webkit-scrollbar {
         display: none;
     }
@@ -315,11 +314,15 @@ const ItemWrapper = styled.div<{ imageUrl?: string }>`
     min-width: 153px;  /* 최소 너비 고정 */
     min-height: 153px; /* 최소 높이 고정 */
     border-radius: 25px;
-    background-color: #074AFF;
+    border: 1px solid #074AFF;
     margin: 0 9px 0 9px;
     background-image: ${({ imageUrl }) => (imageUrl ? `url(${imageUrl})` : 'none')};
     background-size: cover;
     background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 `;
 
 const ListTextWrapper = styled.div`
@@ -335,7 +338,8 @@ const ListBtnWrapper = styled.div`
 
 const DeleteUserWrapper = styled.div`
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
+    margin-bottom: 10px;
 `;
 
 const DeleteUserBtn = styled.span`

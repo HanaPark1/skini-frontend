@@ -12,6 +12,7 @@ import MyPage from "./page/MyPage/MyPage";
 import DiagnosisGuidePage from "./page/Diagnosis/DiangosisGuidePage";
 import MyInfoPage from "./page/MyPage/MyInfoPage";
 import RecentDiagnostic from "./page/MyPage/RecentDiagnostic";
+import FavoritesHospital from "./page/Map/FavoritesHospital";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/mypage/info" element={<MyInfoPage />} />
         <Route path="/mypage/diagnostic" element={<RecentDiagnostic />} />
+        <Route path="/mypage/favoriteHP" element={<FavoritesHospital />} />
         <Route path="/diagnosis" element={<DiagnosisGuidePage />} />
         <Route path="/diagnosis/upload" element={<DiagnosisUproadPage />} />
         <Route path="/diagnosis/result/:id" element={<DiagnosisDetailPage />} />

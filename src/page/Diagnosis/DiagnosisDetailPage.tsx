@@ -123,7 +123,7 @@ function DiagnosisDetailPage() {
                     {/* 기존 UI (isPositive가 true일 때) */}
                     <DetailContainer>
                         <CategoryContainer>
-                            <CategoryImg />
+                            <CategoryImg diagnosisType={diagnosisResult.diagnosisType} />
                             <CategoryText>
                                 {diagnosisResult.diagnosisType === 'CANCER'
                                     ? '피부암'
@@ -202,10 +202,12 @@ const CategoryContainer = styled.div`
     justify-content: space-between;
 `
 
-const CategoryImg = styled.img`
+const CategoryImg = styled.img <{ diagnosisType: string }>`
     width: 48px;
     height: 38px;
-    background-color: green;
+    border-radius: 10px;
+    background-color: ${(props) =>
+        props.diagnosisType === 'CANCER' ? 'red' : props.diagnosisType === 'DISEASE' ? 'green' : 'gray'};
     border-radius: 10px;
 `
 
